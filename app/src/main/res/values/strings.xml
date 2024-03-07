@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Android Abschluss</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe">Recipe</string>
+    <string name="coctail">Cocktail</string>
+    <string name="favorite">Favorite</string>
+    <string name="note">Note</string>
+    <string name="my_favourites_meals" />
+    <string name="add_notes">Add Notes\n</string>
+    <string name="your_notes">Your Notes\n</string>
+    <string name="save">Save\n</string>
+    <string name="show_all_my_notes">Show All My Notes</string>
+    <string name="my_notes">My Notes</string>
+    <string name="category">Kategorie:\n</string>
+    <string name="area">Gebiet:</string>
+    <string name="notes">Note</string>
+    <string name="zutaten">Zutaten</string>
+    <string name="massnahme">Maßnahme</string>
+    <string name="anweisungen">Anweisungen</string>
+    <string name="my_favourites_meals_">My Favourites Meals</string>
+    <string name="suchen">Search</string>
 </resources>
