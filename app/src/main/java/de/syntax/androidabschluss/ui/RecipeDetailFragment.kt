@@ -10,8 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import coil.load
-import de.syntax.androidabschluss.MainViewModel
-import de.syntax.androidabschluss.R
+import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.data.models.Meal
 import de.syntax.androidabschluss.databinding.FragmentRecipeDetailBinding
 import de.syntax.androidabschluss.local.FavoriteMeal

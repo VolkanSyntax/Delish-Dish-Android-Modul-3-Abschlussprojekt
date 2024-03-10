@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "633556382994",
+    "project_id": "delishdish-authentication",
+    "storage_bucket": "delishdish-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633556382994:android:5ed59cb06878acbb9cafcb",
+        "android_client_info": {
+          "package_name": "de.syntax.androidabschluss"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIYzN18oNoj6ODx2flgib2YizFfGFqt4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

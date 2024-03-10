@@ -1,10 +1,14 @@
-package de.syntax.androidabschluss
+package de.syntax.androidabschluss.viewmodel
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import de.syntax.androidabschluss.data.Repository
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.data.models.Meal
@@ -22,6 +26,40 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         RecipeApi.retrofitService, CocktailApi.retrofitService, getMealDatabase(application),
         getCocktailDatabase(application)
     )
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+
+    private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
+
+    val currentUser: LiveData<FirebaseUser?>
+        get() = _currentUser
+
+
+    fun signup(email: String, password: String) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { user ->
+            if (user.isSuccessful) {
+                login(email, password)
+            } else {
+                Log.e(TAG, "Signup failed: ${user.exception}")
+            }
+        }
+    }
+
+    fun login(email: String, password: String) {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            if (it.isSuccessful) {
+                _currentUser.value = firebaseAuth.currentUser
+            }else {
+                Log.e(TAG, "Login failed: ${it.exception}")
+            }
+        }
+    }
+
+    fun logout() {
+        firebaseAuth.signOut()
+        _currentUser.value = firebaseAuth.currentUser
+    }
+
 
     private val _mealsLiveData = MutableLiveData<List<Meal>>()
     val mealsLiveData: LiveData<List<Meal>> = _mealsLiveData

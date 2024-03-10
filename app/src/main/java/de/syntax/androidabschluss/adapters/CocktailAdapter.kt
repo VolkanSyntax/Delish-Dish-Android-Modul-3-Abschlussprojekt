@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import de.syntax.androidabschluss.MainViewModel
+import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.databinding.ItemCocktailBinding

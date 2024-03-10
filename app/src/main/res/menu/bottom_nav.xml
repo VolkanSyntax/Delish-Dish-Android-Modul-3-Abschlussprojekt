@@ -25,6 +25,12 @@
         android:title="@string/note"
         android:iconTint="@color/background_color"/>
 
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings_icon"
+        android:title="@string/settings"
+        android:iconTint="@color/background_color"/>
+
 
 
 

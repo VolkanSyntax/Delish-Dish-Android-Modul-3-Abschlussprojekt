@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.syntax.androidabschluss.MainViewModel
-import de.syntax.androidabschluss.R
+import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.adapters.FavoriteCocktailAdapter
 import de.syntax.androidabschluss.adapters.FavoriteRecipeAdapter
 import de.syntax.androidabschluss.databinding.FragmentFavoriteBinding
