@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.databinding.FragmentCocktailDetailBinding
@@ -66,7 +67,9 @@ class CocktailDetailFragment : Fragment() {
     private fun updateUI(drinks: Cocktail?){
         drinks?.let{
             binding.cocktailDetailTitle.text = drinks.strDrink
-            binding.cocktailDetailImageView.load(drinks.strDrinkThumb)
+            binding.cocktailDetailImageView.load(drinks.strDrinkThumb){
+                transformations(RoundedCornersTransformation(30f))
+            }
             binding.cocktailDetailCategory.text = drinks.strCategory
             binding.cocktailDetailTagsTitle.text = drinks.strTags
             binding.cocktailDetailIngredient.text = getIngredients(drinks)

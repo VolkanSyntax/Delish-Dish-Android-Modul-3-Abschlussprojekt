@@ -9,7 +9,7 @@
         android:layout_width="368dp"
         android:layout_height="281dp"
         android:clickable="true"
-        app:cardBackgroundColor="#D0F354"
+        app:cardBackgroundColor="#82AE32"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"

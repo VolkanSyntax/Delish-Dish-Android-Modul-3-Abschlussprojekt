@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgmndort"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.CocktailDetailFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="27dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -41,25 +43,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="2.2dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
-                android:background="#FFF"
+                android:background="#5786D5"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cocktailDetailTitle"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="480dp" />
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/cocktailDetailCategoryTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="category"
-                android:textColor="#FFF"
+                android:textColor="#5786D5"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -68,9 +69,9 @@
                 android:id="@+id/cocktailDetailCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/text_color"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@+id/cocktailDetailCategoryTitle"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -81,9 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-medium"
                 android:text="tags"
-                android:textColor="#FFF"
+                android:textColor="#5786D5"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cocktailDetailCategory" />
@@ -92,10 +93,9 @@
                 android:id="@+id/cocktailDetailTags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
                 android:fontFamily="sans-serif"
-                android:textColor="@color/text_color"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@+id/cocktailDetailTagsTitle"
                 app:layout_constraintTop_toBottomOf="@+id/cocktailDetailCategory" />
@@ -107,7 +107,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="14dp"
                 android:text="Ingredient"
-                android:textColor="#FFF"
+                android:textColor="#5786D5"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/text_color"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cocktailDetailIngredientTitle" />
@@ -131,7 +131,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="14dp"
                 android:text="Measure"
-                android:textColor="#FFF"
+                android:textColor="#5786D5"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/text_color"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cocktailDetailMeasureTitle" />
@@ -155,7 +155,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
                 android:text="Instructions"
-                android:textColor="#FFF"
+                android:textColor="#5786D5"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -168,9 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp"
                 android:padding="10dp"
-                android:textColor="@color/text_color"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cocktailDetailInstructionsTitle" />

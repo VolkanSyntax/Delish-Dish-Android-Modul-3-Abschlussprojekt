@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.data.models.Meal
 import de.syntax.androidabschluss.databinding.FragmentRecipeDetailBinding
@@ -60,13 +61,15 @@ class RecipeDetailFragment : Fragment() {
     private fun updateUI(meal: Meal?) {
         meal?.let {
             binding.recipeDetailTitle.text = meal.strMeal
-            binding.recipeDetailImageView.load(meal.strMealThumb)
+            binding.recipeDetailImageView.load(meal.strMealThumb){
+                transformations(RoundedCornersTransformation(30f))
+            }
             binding.recipeDetailCategory.text = meal.strCategory
             binding.recipeDetailArea.text = meal.strArea
             binding.recipeDetailIngredient.text = getIngredients(meal)
             binding.recipeDetailMeasure.text = getMeasures(meal)
             binding.recipeDetailInstructions.text = meal.strInstructions
-            binding.imageView.setOnClickListener {
+            binding.ytbbtn.setOnClickListener {
                 meal.strYoutube?.let { youtubeLink ->
                     openYouTubeLink(youtubeLink)
                 }

@@ -35,32 +35,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         get() = _currentUser
 
 
-    fun signup(email: String, password: String) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { user ->
-            if (user.isSuccessful) {
-                login(email, password)
-            } else {
-                Log.e(TAG, "Signup failed: ${user.exception}")
-            }
-        }
-    }
-
-    fun login(email: String, password: String) {
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (it.isSuccessful) {
-                _currentUser.value = firebaseAuth.currentUser
-            }else {
-                Log.e(TAG, "Login failed: ${it.exception}")
-            }
-        }
-    }
-
-    fun logout() {
-        firebaseAuth.signOut()
-        _currentUser.value = firebaseAuth.currentUser
-    }
-
-
     private val _mealsLiveData = MutableLiveData<List<Meal>>()
     val mealsLiveData: LiveData<List<Meal>> = _mealsLiveData
 
@@ -164,6 +138,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             repository.deleteFavoriteCocktail(favoriteCocktail)
             getFavouriteCocktails()
         }
+    }
+
+
+    fun signup(email: String, password: String) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { user ->
+            if (user.isSuccessful) {
+                login(email, password)
+            } else {
+                Log.e(TAG, "Signup failed: ${user.exception}")
+            }
+        }
+    }
+
+    fun login(email: String, password: String) {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            if (it.isSuccessful) {
+                _currentUser.value = firebaseAuth.currentUser
+            }else {
+                Log.e(TAG, "Login failed: ${it.exception}")
+            }
+        }
+    }
+
+    fun logout() {
+        firebaseAuth.signOut()
+        _currentUser.value = firebaseAuth.currentUser
     }
 
 
