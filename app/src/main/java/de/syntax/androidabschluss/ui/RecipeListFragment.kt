@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.adapters.RecipeAdapter
@@ -32,7 +33,9 @@ class RecipeListFragment : Fragment() {
             viewModel.searchMeals(searchValue)
         }
         // Layout manager atanıyor
-        binding.reciperListRV.layoutManager = LinearLayoutManager(context)
+        binding.reciperListRV.layoutManager = GridLayoutManager(context,2);
+
+        binding.reciperListRV.hasFixedSize()
 
         viewModel.mealsLiveData.observe(viewLifecycleOwner) { meals ->
             binding.reciperListRV.adapter = RecipeAdapter(meals, viewModel)
