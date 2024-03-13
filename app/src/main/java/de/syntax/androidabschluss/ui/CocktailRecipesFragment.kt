@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.adapters.CocktailAdapter
@@ -34,7 +35,8 @@ class CocktailRecipesFragment : Fragment() {
             viewModel.searchCocktails(searchValues)
         }
 
-        binding.cocktailsRV.layoutManager = LinearLayoutManager(context)
+        binding.cocktailsRV.layoutManager = GridLayoutManager(context,2);
+        binding.cocktailsRV.hasFixedSize()
 
         viewModel.cocktailsLiveData.observe(viewLifecycleOwner){ cocktails ->
             binding.cocktailsRV.adapter = CocktailAdapter(cocktails,viewModel)
