@@ -16,15 +16,17 @@ import de.syntax.androidabschluss.data.remote.CocktailApi
 import de.syntax.androidabschluss.data.remote.RecipeApi
 import de.syntax.androidabschluss.local.FavoriteCocktail
 import de.syntax.androidabschluss.local.FavoriteMeal
+import de.syntax.androidabschluss.local.Note
 import de.syntax.androidabschluss.local.getCocktailDatabase
 import de.syntax.androidabschluss.local.getMealDatabase
+import de.syntax.androidabschluss.local.getNoteDatabase
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = Repository(
         RecipeApi.retrofitService, CocktailApi.retrofitService, getMealDatabase(application),
-        getCocktailDatabase(application)
+        getCocktailDatabase(application), getNoteDatabase(application)
     )
 
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -151,6 +153,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
     fun login(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
@@ -165,6 +168,42 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         firebaseAuth.signOut()
         _currentUser.value = firebaseAuth.currentUser
     }
+
+
+
+    val noteList = repository.noteList
+
+    private val _complete = MutableLiveData<Boolean>()
+    val complete: LiveData<Boolean>
+        get() = _complete
+
+    fun insertNote(note: Note) {
+        viewModelScope.launch {
+            repository.insert(note)
+            _complete.value = true
+        }
+    }
+
+    fun updateNote(note: Note) {
+        viewModelScope.launch {
+            repository.update(note)
+            _complete.value = true
+        }
+    }
+
+    fun deleteNote(note: Note) {
+        viewModelScope.launch {
+            Log.e("MainViewModel", "Deleted user with id: ${note.id}")
+            repository.delete(note)
+            _complete.value = true
+        }
+    }
+
+    fun unsetComplete() {
+        _complete.value = false
+    }
+
+
 
 
 }

@@ -21,4 +21,11 @@
     <string name="my_favourites_meals_">My Favourites Meals</string>
     <string name="suchen">Search</string>
     <string name="settings">Settings</string>
+
+    <string-array name="titel_array">
+        <item>Alisveris</item>
+        <item>hatirlatma</item>
+        <item>dikkat et</item>
+    </string-array>
+
 </resources>

@@ -65,4 +65,35 @@
         android:name="de.syntax.androidabschluss.ui.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="de.syntax.androidabschluss.ui.NoteFragment"
+        android:label="fragment_note"
+        tools:layout="@layout/fragment_note" >
+        <action
+            android:id="@+id/action_noteFragment_to_noteAddFragment2"
+            app:destination="@id/noteAddFragment" />
+        <action
+            android:id="@+id/action_noteFragment_to_noteEditFragment"
+            app:destination="@id/noteEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteAddFragment"
+        android:name="de.syntax.androidabschluss.ui.NoteAddFragment"
+        android:label="NoteAddFragment" >
+        <action
+            android:id="@+id/action_noteAddFragment2_to_noteFragment"
+            app:destination="@id/noteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteEditFragment"
+        android:name="de.syntax.androidabschluss.ui.NoteEditFragment"
+        android:label="NoteEditFragment" >
+        <action
+            android:id="@+id/action_noteEditFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
+        <argument
+            android:name="noteId"
+            app:argType="long" />
+    </fragment>
 </navigation>

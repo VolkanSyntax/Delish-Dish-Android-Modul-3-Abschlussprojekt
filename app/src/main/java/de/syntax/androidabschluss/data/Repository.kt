@@ -1,5 +1,6 @@
 package de.syntax.androidabschluss.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.data.models.Meal
@@ -9,9 +10,15 @@ import de.syntax.androidabschluss.local.FavoriteCocktail
 import de.syntax.androidabschluss.local.FavoriteCocktailDatabase
 import de.syntax.androidabschluss.local.FavoriteMeal
 import de.syntax.androidabschluss.local.FavoriteMealDatabase
+import de.syntax.androidabschluss.local.Note
+import de.syntax.androidabschluss.local.NoteDatabase
 
+
+const val TAG = "Repository"
 class Repository(private val recipeApiService: RecipeApiService, private val cocktailApiService: CocktailApiService,
-                 private val favoriteMealDb: FavoriteMealDatabase, private val favoriteCocktailDb: FavoriteCocktailDatabase
+                 private val favoriteMealDb: FavoriteMealDatabase, private val favoriteCocktailDb: FavoriteCocktailDatabase,
+                 private val noteDb: NoteDatabase
+
 ) {
 
     suspend fun getMeals(): List<Meal>? {
@@ -104,6 +111,32 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
             favoriteCocktailDb.favoriteCocktailDao.deleteFavoriteCocktail(favoriteCocktail)
         } catch (e: Exception){
 
+        }
+    }
+    val noteList: LiveData<List<Note>> = noteDb.noteDatabaseDao.getAll()
+
+
+    suspend fun insert(note: Note) {
+        try {
+            noteDb.noteDatabaseDao.insert(note)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error writing into database: $e")
+        }
+    }
+
+    suspend fun update(note: Note) {
+        try {
+            noteDb.noteDatabaseDao.update(note)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating database: $e")
+        }
+    }
+
+    suspend fun delete(note: Note) {
+        try {
+            noteDb.noteDatabaseDao.deleteById(note.id)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error deleting from database: $e")
         }
     }
 

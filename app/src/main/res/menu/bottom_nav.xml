@@ -20,7 +20,7 @@
         android:iconTint="@color/background_color"/>
 
     <item
-        android:id="@+id/noteAddFragment"
+        android:id="@+id/noteFragment"
         android:icon="@drawable/note_icon"
         android:title="@string/note"
         android:iconTint="@color/background_color"/>
