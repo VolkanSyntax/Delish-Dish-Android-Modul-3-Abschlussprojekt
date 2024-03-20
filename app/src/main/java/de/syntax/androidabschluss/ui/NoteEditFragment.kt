@@ -44,7 +44,7 @@ class NoteEditFragment : Fragment() {
         val note = viewModel.noteList.value?.find { it.id == noteId }
 
         if (note != null){
-            binding.editNameEdit.setText(note.title)
+            binding.editNameTextfield.setText(note.title)
             val index = resources.getStringArray(R.array.titel_array).indexOf(note.text)
             binding.editFoodSpinner.setSelection(index)
         }
@@ -71,7 +71,7 @@ class NoteEditFragment : Fragment() {
     }
 
     private fun getValuesAndUpdate(note: Note) {
-        note.title = binding.editNameEdit.text.toString()
+        note.title = binding.editNameTextfield.text.toString()
         note.text = binding.editFoodSpinner.selectedItem.toString()
         viewModel.updateNote(note)
     }

@@ -10,9 +10,18 @@
     <color name="colorTabInactive">#009384</color>
     <color name="background_color">#F06292</color>
     <color name="text_color">#FFEE58</color>
+    <color name="text_color_hint">#72FFEE58</color>
 
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#FDD835</color> <!-- Bu değeri değiştirin -->
     <color name="colorAccent">#03DAC5</color>
+
+
+    <color name="NoteColor1">#FFC1C1</color>
+    <color name="NoteColor2">#FF9999</color>
+    <color name="NoteColor3">#FF6D6D</color>
+    <color name="NoteColor4">#FF4141</color>
+    <color name="NoteColor5">#FF0000</color>
+    <color name="NoteColor6">#C20000</color>
 
 </resources>

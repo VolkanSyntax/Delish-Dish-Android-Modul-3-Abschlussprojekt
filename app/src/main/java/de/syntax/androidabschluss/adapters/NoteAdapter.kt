@@ -4,13 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.databinding.ItemNoteBinding
 import de.syntax.androidabschluss.local.Note
 import de.syntax.androidabschluss.ui.NoteFragmentDirections
 
 class NoteAdapter(
-    private val dataset: List<Note>
+    private val dataset: List<Note>,
+    private val onDeleteClick: (Note) -> Unit
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+
 
     class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -28,10 +31,15 @@ class NoteAdapter(
         holder.binding.itemNameText.text = note.title
         holder.binding.itemFoodText.text = note.text
 
+        holder.binding.deleteCardIcon.setOnClickListener {
+            onDeleteClick(note) // Callback'i tetikle
+        }
+
         holder.binding.itemLayout.setOnClickListener {
             val navController = holder.binding.itemLayout.findNavController()
             navController.navigate(NoteFragmentDirections.actionNoteFragmentToNoteEditFragment(note.id))
         }
+
 
 
     }

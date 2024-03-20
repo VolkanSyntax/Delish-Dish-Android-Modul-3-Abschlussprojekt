@@ -31,11 +31,18 @@ class NoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.noteList.observe(viewLifecycleOwner){notes ->
-            binding.notelist.adapter = NoteAdapter(notes)
+            binding.notelist.adapter = NoteAdapter(notes) { note ->
+                viewModel.deleteNote(note)
+            }
+
         }
+
+
 
         binding.addNoteButton.setOnClickListener {
             findNavController().navigate(NoteFragmentDirections.actionNoteFragmentToNoteAddFragment2())
         }
+
+
     }
 }

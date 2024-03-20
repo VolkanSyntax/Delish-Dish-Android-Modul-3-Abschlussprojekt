@@ -23,9 +23,10 @@
     <string name="settings">Settings</string>
 
     <string-array name="titel_array">
-        <item>Alisveris</item>
-        <item>hatirlatma</item>
-        <item>dikkat et</item>
+        <item>Title</item>
+        <item>Shopping</item>
+        <item>Reminder</item>
+        <item>Attention</item>
     </string-array>
 
 </resources>

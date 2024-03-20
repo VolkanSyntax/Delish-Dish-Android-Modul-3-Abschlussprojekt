@@ -4,37 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:clickable="true">
 
-    <TextView
-        android:id="@+id/item_name_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_text"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#B60829"
+        app:layout_constraintBottom_toBottomOf="@+id/item_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Testinger Test" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/item_food_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:textSize="20sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Title"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_name_text"
-        tools:text="Fisch" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0.8dp"
-        android:layout_marginStart="24dp"
-        android:background="@color/teal_700"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_name_text" />
+    <TextView
+        android:id="@+id/item_name_text"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Texte"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/cv_text"
+        app:layout_constraintTop_toBottomOf="@+id/item_food_text" />
+
+    <ImageView
+        android:id="@+id/delete_card_icon"
+        android:layout_width="38dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cv_text"
+        app:layout_constraintEnd_toEndOf="@+id/cv_text"
+        app:layout_constraintTop_toTopOf="@+id/cv_text"
+        app:srcCompat="@drawable/delete_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
