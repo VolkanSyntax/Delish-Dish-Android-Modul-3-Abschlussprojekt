@@ -22,7 +22,7 @@ class NoteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNoteBinding.inflate(inflater,container,false)
+        binding = FragmentNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,19 +30,15 @@ class NoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.noteList.observe(viewLifecycleOwner){notes ->
-            binding.notelist.adapter = NoteAdapter(notes) { note ->
-                viewModel.deleteNote(note)
+        viewModel.noteList.observe(viewLifecycleOwner) { notes ->
+            binding.notelist.adapter = NoteAdapter(notes, viewModel)
+
+
+            binding.addNoteButton.setOnClickListener {
+                findNavController().navigate(NoteFragmentDirections.actionNoteFragmentToNoteAddFragment2())
             }
 
+
         }
-
-
-
-        binding.addNoteButton.setOnClickListener {
-            findNavController().navigate(NoteFragmentDirections.actionNoteFragmentToNoteAddFragment2())
-        }
-
-
     }
 }

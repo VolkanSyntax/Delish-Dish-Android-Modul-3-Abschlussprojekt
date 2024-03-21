@@ -8,10 +8,11 @@ import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.databinding.ItemNoteBinding
 import de.syntax.androidabschluss.local.Note
 import de.syntax.androidabschluss.ui.NoteFragmentDirections
+import de.syntax.androidabschluss.viewmodel.MainViewModel
 
 class NoteAdapter(
     private val dataset: List<Note>,
-    private val onDeleteClick: (Note) -> Unit
+    private val viewModel: MainViewModel,
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
 
@@ -32,7 +33,7 @@ class NoteAdapter(
         holder.binding.itemFoodText.text = note.text
 
         holder.binding.deleteCardIcon.setOnClickListener {
-            onDeleteClick(note) // Callback'i tetikle
+            viewModel.deleteNote(note)
         }
 
         holder.binding.itemLayout.setOnClickListener {
