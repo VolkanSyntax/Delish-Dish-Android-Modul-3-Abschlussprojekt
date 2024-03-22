@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.data.models.Meal
 import de.syntax.androidabschluss.databinding.FragmentRecipeDetailBinding
@@ -35,28 +36,45 @@ class RecipeDetailFragment : Fragment() {
 
         viewModel.mealDetailLiveData.observe(viewLifecycleOwner) { meal ->
             updateUI(meal)
-            binding.addrecipe.setOnClickListener {
-                val favoriteMeal = FavoriteMeal(meal.idMeal, meal.strMeal, meal.strMealThumb, meal.strCategory, meal.strArea, meal.strInstructions)
-                viewModel.addFavoriteMeal(favoriteMeal)
-                Toast.makeText(context, "${meal.strMeal} favorilere eklendi", Toast.LENGTH_SHORT)
-                    .show()
-            }
 
-            binding.removerecipe.setOnClickListener {
-                val favoriteMeal = FavoriteMeal(meal.idMeal, meal.strMeal, meal.strMealThumb, meal.strCategory, meal.strArea, meal.strInstructions)
-                viewModel.deleteFavoriteMeal(favoriteMeal)
-                Toast.makeText(
-                    context,
-                    "${meal.strMeal} favorilerden çıkarıldı",
-                    Toast.LENGTH_SHORT
-                ).show()
+            viewModel.favouriteMealsLiveData.observe(viewLifecycleOwner) { favouriteMeals ->
+                var isFavorite = false // Favori olup olmadığını tutacak değişken
+
+                // Liste içinde döngüyle aradığımız yemeği arıyoruz
+                for (favouriteMeal in favouriteMeals) {
+                    if (favouriteMeal.idMeal == meal.idMeal) {
+                        isFavorite = true // Yemek favorilerde bulundu
+                        continue // Yemek bulunduğunda döngüden çık
+                    }
+                }
+
+                // Eğer yemek favorilerdeyse favoritefill, değilse favoriteempty göster
+                binding.addrecipe.setImageResource(if (isFavorite) R.drawable.favoritefill else R.drawable.favoriteempty)
+
+                binding.addrecipe.setOnClickListener {
+                    if (isFavorite) {
+                        // Favori ise, favorilerden çıkar
+                        val favoriteMeal = FavoriteMeal(meal.idMeal, meal.strMeal, meal.strMealThumb, meal.strCategory, meal.strArea, meal.strInstructions)
+                        viewModel.deleteFavoriteMeal(favoriteMeal)
+                        Toast.makeText(context, "${meal.strMeal} Aus den Favoriten entfernt", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Favori değilse, favorilere ekle
+                        val favoriteMeal = FavoriteMeal(meal.idMeal, meal.strMeal, meal.strMealThumb, meal.strCategory, meal.strArea, meal.strInstructions)
+                        viewModel.addFavoriteMeal(favoriteMeal)
+                        Toast.makeText(context, "${meal.strMeal} Zu den Favoriten hinzugefügt", Toast.LENGTH_SHORT).show()
+                    }
+                    // Favori durumunu değiştirdikten sonra UI'ı güncelle
+                    isFavorite = !isFavorite
+                    binding.addrecipe.setImageResource(if (isFavorite) R.drawable.favoritefill else R.drawable.favoriteempty)
+                }
             }
         }
-
-
-
-
     }
+
+
+
+
+
 
     private fun updateUI(meal: Meal?) {
         meal?.let {

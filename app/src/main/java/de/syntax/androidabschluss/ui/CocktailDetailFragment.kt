@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.databinding.FragmentCocktailDetailBinding
@@ -32,37 +33,44 @@ class CocktailDetailFragment : Fragment() {
 
         viewModel.cocktailDetailLiveData.observe(viewLifecycleOwner) { cocktail ->
             updateUI(cocktail)
-            binding.addcocktail.setOnClickListener {
-                val favoriteCocktail = FavoriteCocktail(
-                    cocktail.idDrink,
-                    cocktail.strDrink, cocktail.strDrinkThumb, cocktail.strCategory, cocktail.strInstructions)
-                viewModel.addFavoriteCocktail(favoriteCocktail)
-                Toast.makeText(
-                    context,
-                    "${cocktail.strDrink} favorilere eklendi", Toast.LENGTH_SHORT)
-                    .show()
 
-            }
+            viewModel.favouriteCocktailsLiveData.observe(viewLifecycleOwner) { favoriteCocktails ->
+                var isFavorite = false // Kokteylin favori olup olmadığını tutacak değişken
 
-            binding.removecocktail.setOnClickListener {
-                val favoriteCocktail = FavoriteCocktail(
-                    cocktail.idDrink,
-                    cocktail.strDrink, cocktail.strDrinkThumb, cocktail.strCategory, cocktail.strInstructions)
-                viewModel.deleteFavoriteCocktail(favoriteCocktail)
-                Toast.makeText(
-                    context,
-                    "${cocktail.strDrink} favorilerden cikarildi",
-                    Toast.LENGTH_SHORT
-                ).show()
+                // Liste içinde döngüyle aradığımız kokteyli arıyoruz
+                for (favoriteCocktail in favoriteCocktails) {
+                    if (favoriteCocktail.idDrink == cocktail.idDrink) {
+                        isFavorite = true // Kokteyl favorilerde bulundu
+                        continue // Kokteyl bulunduğunda döngüden çık
+                    }
+                }
+
+                // Eğer kokteyl favorilerdeyse favoritefill, değilse favoriteempty göster
+                binding.addcocktail.setImageResource(if (isFavorite) R.drawable.favoritefill else R.drawable.favoriteempty)
+
+                binding.addcocktail.setOnClickListener {
+                    if (isFavorite) {
+                        // Favori ise, favorilerden çıkar
+                        val favoriteCocktail = FavoriteCocktail(cocktail.idDrink, cocktail.strDrink, cocktail.strDrinkThumb, cocktail.strCategory, cocktail.strInstructions)
+                        viewModel.deleteFavoriteCocktail(favoriteCocktail)
+                        Toast.makeText(context, "${cocktail.strDrink} Aus den Favoriten entfernt", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Favori değilse, favorilere ekle
+                        val favoriteCocktail = FavoriteCocktail(cocktail.idDrink, cocktail.strDrink, cocktail.strDrinkThumb, cocktail.strCategory, cocktail.strInstructions)
+                        viewModel.addFavoriteCocktail(favoriteCocktail)
+                        Toast.makeText(context, "${cocktail.strDrink} Zu den Favoriten hinzugefügt", Toast.LENGTH_SHORT).show()
+                    }
+                    // Favori durumunu değiştirdikten sonra UI'ı güncelle
+                    isFavorite = !isFavorite
+                    binding.addcocktail.setImageResource(if (isFavorite) R.drawable.favoritefill else R.drawable.favoriteempty)
+                }
             }
         }
-
-
-
-
-
-
     }
+
+
+
+
 
     private fun updateUI(drinks: Cocktail?){
         drinks?.let{

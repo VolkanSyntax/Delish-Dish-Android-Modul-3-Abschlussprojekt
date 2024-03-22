@@ -178,30 +178,20 @@
             android:layout_height="42dp"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintHorizontal_bias="0.693"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeDetailImageView"
-            app:layout_constraintVertical_bias="0.746"
+            app:layout_constraintVertical_bias="0.825"
             app:srcCompat="@drawable/youtube" />
 
         <ImageView
             android:id="@+id/addrecipe"
-            android:layout_width="53dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="44dp"
-            android:src="@drawable/add"
+            android:layout_width="62dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/favoriteempty"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeDetailImageView" />
-
-        <ImageView
-            android:id="@+id/removerecipe"
-            android:layout_width="49dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/remove"
-            app:layout_constraintEnd_toStartOf="@+id/addrecipe"
             app:layout_constraintTop_toBottomOf="@+id/recipeDetailImageView" />
 
 
