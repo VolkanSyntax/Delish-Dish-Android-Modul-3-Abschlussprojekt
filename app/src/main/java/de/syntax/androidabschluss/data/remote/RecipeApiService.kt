@@ -35,17 +35,11 @@ interface RecipeApiService{
     @GET("search.php")
     suspend fun mealsSearch(@Query("s") mealSearchValue: String): MealList
 
-
-    // Tüm yemeklerin listesini getirmek için GET isteği
     @GET("search.php?s=")
     suspend fun mealsList(): MealList
 
-    // Belirli bir yemeğin detaylarını getirmek için GET isteği
     @GET("lookup.php")
     suspend fun mealDetail(@Query("i") mealIdValue: String): MealList
-
-    @GET("lookup.php")
-    suspend fun mealsFavouriteList(@Query("i") mealFavouriteId: Int): MealList
 
 
 

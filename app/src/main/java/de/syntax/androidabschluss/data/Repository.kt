@@ -15,16 +15,19 @@ import de.syntax.androidabschluss.local.NoteDatabase
 
 
 const val TAG = "Repository"
-class Repository(private val recipeApiService: RecipeApiService, private val cocktailApiService: CocktailApiService,
-                 private val favoriteMealDb: FavoriteMealDatabase, private val favoriteCocktailDb: FavoriteCocktailDatabase,
-                 private val noteDb: NoteDatabase
+class Repository(private val recipeApiService: RecipeApiService,
+                 private val cocktailApiService: CocktailApiService,
+                 private val favoriteMealDb: FavoriteMealDatabase,
+                 private val favoriteCocktailDb: FavoriteCocktailDatabase,
+                 private val noteDb: NoteDatabase)
 
-) {
+{
 
     suspend fun getMeals(): List<Meal>? {
         return try {
             recipeApiService.mealsList().meals
         } catch (e: Exception) {
+            Log.e(TAG, "Error fetching meals: $e")
             null
         }
     }
@@ -33,6 +36,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         return try {
             recipeApiService.mealsSearch(query).meals
         } catch (e: Exception) {
+            Log.e(TAG, "Error searching meals: $e")
             null
         }
     }
@@ -41,6 +45,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         return try {
             recipeApiService.mealDetail(mealId).meals?.firstOrNull()
         } catch (e: Exception) {
+            Log.e(TAG, "Error fetching meal detail: $e")
             null
         }
     }
@@ -49,6 +54,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         return try {
             cocktailApiService.cocktailsList().drinks
         } catch (e: Exception) {
+            Log.e(TAG, "Error fetching cocktails: $e")
             null
         }
     }
@@ -57,6 +63,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         return try {
             cocktailApiService.getCocktailByName(query).drinks
         } catch (e: Exception) {
+            Log.e(TAG, "Error searching cocktail by name: $e")
             null
         }
     }
@@ -65,10 +72,16 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         return try {
             cocktailApiService.getCocktailById(cocktailId).drinks?.firstOrNull()
         } catch (e: Exception) {
+            Log.e(TAG, "Error fetching cocktail by id: $e")
             null
         }
     }
 
+
+
+
+
+    // -------Favoriten Meals - Cocktail -- Room - Database-------------Repository---------
 
 
     fun getFavouriteMeals(): LiveData<List<FavoriteMeal>> {
@@ -84,7 +97,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         try {
             favoriteMealDb.favoriteMealDao.insertFavoriteMeal(favoriteMeal)
         } catch (e: Exception) {
-            // Handle the exception
+            Log.e(TAG, "Error writing into insert FavoriteMeal: $e")
         }
     }
 
@@ -92,7 +105,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         try {
             favoriteCocktailDb.favoriteCocktailDao.insertFavoriteCocktail(favoriteCocktail)
         } catch (e: Exception) {
-            // Handle the exception
+            Log.e(TAG, "Error writing into insert favoriteCocktail: $e")
         }
     }
 
@@ -102,7 +115,7 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         try {
             favoriteMealDb.favoriteMealDao.deleteFavoriteMeal(favoriteMeal)
         } catch (e: Exception) {
-            // Handle the exception
+            Log.e(TAG, "Error writing into delete FavoriteMeal: $e")
         }
     }
 
@@ -110,9 +123,15 @@ class Repository(private val recipeApiService: RecipeApiService, private val coc
         try {
             favoriteCocktailDb.favoriteCocktailDao.deleteFavoriteCocktail(favoriteCocktail)
         } catch (e: Exception){
-
+            Log.e(TAG, "Error writing into delete FavoriteCocktail: $e")
         }
     }
+
+
+
+
+    //------------- Note Room Database---------Repository------------------
+
     val noteList: LiveData<List<Note>> = noteDb.noteDatabaseDao.getAll()
 
 
