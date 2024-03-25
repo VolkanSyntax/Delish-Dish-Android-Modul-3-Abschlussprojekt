@@ -174,22 +174,22 @@
 
         <ImageView
             android:id="@+id/ytbbtn"
-            android:layout_width="36dp"
-            android:layout_height="42dp"
+            android:layout_width="159dp"
+            android:layout_height="62dp"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.693"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeDetailImageView"
-            app:layout_constraintVertical_bias="0.825"
-            app:srcCompat="@drawable/youtube" />
+            app:layout_constraintVertical_bias="0.85"
+            app:srcCompat="@drawable/logoytbee" />
 
         <ImageView
             android:id="@+id/addrecipe"
-            android:layout_width="62dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="28dp"
+            android:layout_width="54dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="18dp"
             android:src="@drawable/favoriteempty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeDetailImageView" />
