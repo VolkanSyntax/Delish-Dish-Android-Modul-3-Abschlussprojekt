@@ -22,6 +22,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
     }
 
     buildTypes {
@@ -57,6 +60,14 @@ android {
 }
 
 dependencies {
+    //OpenAi
+
+    implementation("com.aallam.openai:openai-client")
+    implementation "com.aallam.openai:openai-client:3.7.0"
+    implementation platform("com.aallam.openai:openai-client-bom:3.7.0")
+    runtimeOnly "io.ktor:ktor-client-okhttp"
+
+    //--------------
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -87,7 +98,7 @@ dependencies {
 
     // Firebase
     // BOM (Bill of materials) welche uns erlaubt, alle Versionen der dependencies über diese bom zu managen.
-    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     // Authentication dependencie ohne Version, dank der BOM
     implementation("com.google.firebase:firebase-auth")
 

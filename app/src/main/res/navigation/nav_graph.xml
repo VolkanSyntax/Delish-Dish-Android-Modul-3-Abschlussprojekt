@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_recipeListFragment2_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_assistantFragment"
+            app:destination="@id/assistantFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
@@ -31,6 +34,9 @@
         <action
             android:id="@+id/action_cocktailRecipesFragment2_to_cocktailDetailFragment"
             app:destination="@id/cocktailDetailFragment" />
+        <action
+            android:id="@+id/action_cocktailRecipesFragment_to_assistantFragment"
+            app:destination="@id/assistantFragment" />
     </fragment>
     <fragment
         android:id="@+id/cocktailDetailFragment"
@@ -95,5 +101,17 @@
         <argument
             android:name="noteId"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/assistantFragment"
+        android:name="de.syntax.androidabschluss.ui.AssistantFragment"
+        android:label="fragment_assistant"
+        tools:layout="@layout/fragment_assistant" >
+        <action
+            android:id="@+id/action_assistantFragment_to_cocktailRecipesFragment"
+            app:destination="@id/cocktailRecipesFragment" />
+        <action
+            android:id="@+id/action_assistantFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
     </fragment>
 </navigation>

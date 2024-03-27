@@ -7,6 +7,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.RecipeListFragment">
 
+
+
+
+
     <EditText
         android:id="@+id/recipeListEditTextSearch"
         android:layout_width="280dp"
@@ -48,14 +52,28 @@
         android:id="@+id/reciperListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="114dp"
         android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipeListSearchButton"
         app:spanCount="2"
         tools:listitem="@layout/item_recipe" />
 
+    <Button
+        android:id="@+id/assistant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="162dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="Recipes Generator"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeListEditTextSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
