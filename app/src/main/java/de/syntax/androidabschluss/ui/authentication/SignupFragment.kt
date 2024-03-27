@@ -1,5 +1,6 @@
 package de.syntax.androidabschluss.ui.authentication
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,8 +50,23 @@ class SignupFragment : Fragment() {
         val email = binding.signupMail.text.toString()
         val password = binding.signupPassword.text.toString()
 
-        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
+            // AlertDialog ile kullanıcıya uyarı göster
+            showIncompleteFormDialog()
+        } else {
             viewModel.signup(email, password)
+        }
+    }
+
+    // Kullanıcı formu eksiksiz doldurmadığında gösterilecek AlertDialog fonksiyonu
+    private fun showIncompleteFormDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Unvollständige Informationen") // Dialog başlığı
+            setMessage("Bitte füllen Sie Ihre E-Mail-Adresse und Ihr Passwort korrekt und vollständig aus.") // Dialog mesajı
+            setPositiveButton("OK") { dialog, which ->
+                dialog.dismiss()
+            }
+            create().show()
         }
     }
 }

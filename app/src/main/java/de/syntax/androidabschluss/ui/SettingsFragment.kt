@@ -1,5 +1,6 @@
 package de.syntax.androidabschluss.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,9 +39,23 @@ class SettingsFragment : Fragment() {
             }
         }
 
+
         binding.logoutButton.setOnClickListener {
-            viewModel.logout()
+            showLogoutConfirmationDialog()
         }
     }
-
+    private fun showLogoutConfirmationDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Abmelden")
+            setMessage("Sind Sie sicher, dass Sie sich abmelden möchten?")
+            setPositiveButton("Ja") { dialog, which ->
+                viewModel.logout()
+                dialog.dismiss()
+            }
+            setNegativeButton("Nein") { dialog, which ->
+                dialog.dismiss()
+            }
+            create().show()
+        }
+    }
 }
