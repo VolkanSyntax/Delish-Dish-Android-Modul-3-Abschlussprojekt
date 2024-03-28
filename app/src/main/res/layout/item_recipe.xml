@@ -10,7 +10,7 @@
         android:layout_height="280dp"
         android:layout_marginStart="4dp"
         android:clickable="true"
-        app:cardBackgroundColor="#B60829"
+        app:cardBackgroundColor="@color/delish_red"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
@@ -40,8 +40,8 @@
                     android:id="@+id/productTextViewTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ürün Adı"
-                    android:textColor="@color/white"
+                    android:text="@string/produkt_text"
+                    android:textColor="@color/delish_white"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -49,7 +49,8 @@
                     android:id="@+id/productTextViewTags"
                     android:layout_width="142dp"
                     android:layout_height="32dp"
-                    android:textColor="@color/white"
+                    android:text="@string/produkt_name_text"
+                    android:textColor="@color/delish_white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="110dp"
         android:layout_margin="8dp"
-        android:backgroundTint="#B60829"
+        android:backgroundTint="@color/delish_red"
         app:layout_constraintBottom_toBottomOf="@+id/item_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Title"
+        android:text="@string/note_title_überschrift_card"
         android:textSize="19sp"
         android:textStyle="bold"
-        android:textColor="@color/text_color"
+        android:textColor="@color/delish_yellow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,8 +42,8 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="Texte"
-        android:textColor="@color/white"
+        android:text="@string/note_texte_text"
+        android:textColor="@color/delish_white"
         app:layout_constraintStart_toStartOf="@+id/cv_text"
         app:layout_constraintTop_toBottomOf="@+id/item_food_text" />
 
