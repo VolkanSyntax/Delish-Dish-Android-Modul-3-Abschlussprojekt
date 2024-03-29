@@ -2,6 +2,34 @@ package de.syntax.androidabschluss.data.models
 
 import com.squareup.moshi.Json
 
+/*
+Bu Kotlin kod parçası, bir Cocktail data modelini tanımlar. Model, bir kokteylin çeşitli özelliklerini tutmak için
+kullanılır ve Moshi kütüphanesi ile JSON serileştirme/deserileştirme işlemleri için hazırlanmıştır. Her bir özellik,
+JSON'dan gelen karşılık gelen veri ile eşleşmek üzere @Json annotation'ı ile işaretlenmiştir. İşte özelliklerin açıklamaları:
+
+idDrink: Kokteylin benzersiz ID'si.
+strDrink: Kokteylin adı.
+strDrinkAlternate: Kokteylin alternatif adı (varsa).
+strTags: Kokteylin etiketleri veya ilişkilendirilmiş anahtar kelimeler.
+strVideo: Kokteylin hazırlanışını gösteren video linki (varsa).
+strCategory: Kokteylin kategorisi.
+strIBA: International Bartenders Association tarafından kokteyle verilen sınıflandırma (varsa).
+strAlcoholic: Kokteylin alkollü mü yoksa alkolsüz mü olduğu.
+strGlass: Kokteylin servis edilmesi gereken bardak tipi.
+strInstructions: Kokteylin hazırlanış talimatları (varsayılan dil).
+strInstructionsZHHANS: Kokteylin hazırlanış talimatları (basitleştirilmiş Çince).
+strInstructionsZHHANT: Kokteylin hazırlanış talimatları (geleneksel Çince).
+strDrinkThumb: Kokteylin görselinin URL'si.
+strIngredient1 ... strIngredient15: Kokteylin içinde bulunan malzemeler. Kokteyller farklı sayıda malzeme içerebileceğinden, 15'e kadar malzeme desteklenir.
+strMeasure1 ... strMeasure15: İlgili malzemelerin ölçüleri. Her malzeme için bir ölçü belirtilir.
+strImageSource: Kokteylin görselinin kaynağı (varsa).
+strCreativeCommonsConfirmed: Kokteylin görselinin Creative Commons lisansı altında olup olmadığını belirten bir işaretçi (varsa).
+dateModified: Kokteylin veri kaydının son güncellendiği tarih.
+Bu model, bir API'den gelen kokteyl verilerini uygulama içerisinde kolayca kullanabilmek için hazırlanmıştır.
+@Json annotation'ı, Moshi kütüphanesinin JSON anahtarlarını Kotlin özellikleriyle eşleştirmesini sağlar, böylece
+JSON'dan nesne oluşturma ve nesneden JSON'a dönüşüm işlemleri kolaylaşır.
+ */
+
 data class Cocktail(
     @Json(name = "idDrink") val idDrink: String,
     @Json(name = "strDrink") val strDrink: String,

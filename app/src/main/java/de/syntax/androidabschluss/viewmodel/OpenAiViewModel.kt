@@ -11,37 +11,42 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import de.syntax.androidabschluss.data.remote.ApiBuilder
 import kotlinx.coroutines.launch
 
-class OpenAiViewModel(private val api: ApiBuilder) : ViewModel(){
+// OpenAI API'sini kullanarak çeşitli istekler yapabilen ViewModel sınıfı.
+class OpenAiViewModel(private val api: ApiBuilder) : ViewModel() {
 
+    // API'den alınan yanıtı tutan LiveData.
     private val _apiResponse = MutableLiveData<String?>()
     val apiResponse: LiveData<String?>
         get() = _apiResponse
+
+    // Kullanıcıdan alınan isteğe göre API'ye istek yapma işlemini yürüten fonksiyon.
     fun getApiResponse(request: String) {
         viewModelScope.launch {
+            // İstek, yemek tarifleri veya kokteyllerle ilgili mi diye kontrol ediliyor.
             if (api.isMessageAboutRecipesOrCocktails(request)) {
-                // Eğer mesaj tariflerle ilgiliyse, API'ye istek yapılır.
                 try {
+                    // İlgili ise, ApiBuilder üzerinden API'ye istek yapılıyor.
                     val response = api.senMessageRequestToApi(request)
                     val stringBuilder = StringBuilder()
+                    // API'den gelen yanıtlar birleştiriliyor.
                     response.collect { chunk ->
-                        // Gelen yanıt parçalarını birleştirir.
                         val choices = chunk.choices
                         if (choices.isNotEmpty()) {
                             val completion = choices.last()
                             val delta = completion.delta
                             if (delta?.content != null) {
+                                // Yanıt parçaları birleştirilip _apiResponse'a ekleniyor.
                                 stringBuilder.append(delta.content.toString())
-                                // Yanıtı _apiResponse akışına ekler.
                                 _apiResponse.value = stringBuilder.toString()
                             }
                         }
                     }
                 } catch (e: Exception) {
-                    // API'den yanıt alırken bir hata oluşursa loglar.
+                    // API isteği sırasında hata oluşursa loglanıyor.
                     Log.e("Open API Error", e.message.toString())
                 }
             } else {
-                // Eğer mesaj tariflerle ilgili değilse, belirli bir yanıt döndürür.
+                // İstek ilgili kategorilerle alakalı değilse kullanıcıya bilgi veriliyor.
                 _apiResponse.value = "I can only provide information about Recipes and Cocktails.\n" +
                         "\n Ich kann nur Informationen über Rezepte und Cocktails bereitstellen.\n " +
                         "\n Sadece yemek Tarifleri ve Kokteyller hakkında bilgi verebilirim. "
@@ -49,7 +54,7 @@ class OpenAiViewModel(private val api: ApiBuilder) : ViewModel(){
         }
     }
 
-    // ViewModel'i oluşturmak için kullanılan factory sınıfı.
+    // ViewModel'i oluştururken kullanılan fabrika sınıfı.
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
@@ -57,7 +62,7 @@ class OpenAiViewModel(private val api: ApiBuilder) : ViewModel(){
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                // ApiBuilder örneğini ViewModel'e enjekte eder.
+                // ApiBuilder örneği ViewModel'e enjekte edilerek geri döndürülüyor.
                 val api = ApiBuilder()
                 return OpenAiViewModel(api = api) as T
             }

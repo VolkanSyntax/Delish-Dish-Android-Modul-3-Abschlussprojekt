@@ -1,7 +1,6 @@
 package de.syntax.androidabschluss.viewmodel
 
 import android.app.Application
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -25,14 +24,12 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    // Repository'nin başlatılması ve servislerin, veritabanlarının tanımlanması
     private val repository = Repository(RecipeApi.retrofitService,
         CocktailApi.retrofitService, getMealDatabase(application),
-        getCocktailDatabase(application), getNoteDatabase(application)  )
+        getCocktailDatabase(application), getNoteDatabase(application))
 
-
-
-
-
+    // LiveData tanımlamaları ve MutableLiveData kullanarak verilerin saklanması
     private val _mealsLiveData = MutableLiveData<List<Meal>>()
     val mealsLiveData: LiveData<List<Meal>>
         get() = _mealsLiveData
@@ -58,14 +55,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         get() = _favouriteCocktailsLiveData
 
     init {
+        // Başlangıçta favori yemek ve kokteyllerin yüklenmesi
         getFavouriteMeals()
         getFavouriteCocktails()
     }
 
-
     private  var  TAG = "MainViewModel"
 
-
+    // Yemek listesinin alınması için fonksiyon
     fun getMeals() {
         viewModelScope.launch {
             try {
@@ -76,7 +73,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
+    // Yemek araması yapma fonksiyonu
     fun searchMeals(query: String) {
         viewModelScope.launch {
             try {
@@ -87,6 +84,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Yemek detayının alınması için fonksiyon
     fun getMealDetail(mealId: String) {
         viewModelScope.launch {
             try {
@@ -97,6 +95,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Kokteyl listesinin alınması için fonksiyon
     fun getCocktails() {
         viewModelScope.launch {
             try {
@@ -107,6 +106,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Kokteyl araması yapma fonksiyonu
     fun searchCocktails(query: String) {
         viewModelScope.launch {
             try {
@@ -117,6 +117,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Kokteyl detayının alınması için fonksiyon
     fun getCocktailDetail(cocktailId: String) {
         viewModelScope.launch {
             try {
@@ -127,6 +128,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Favori yemeklerin alınması için fonksiyon
     fun getFavouriteMeals() {
         viewModelScope.launch {
             try {
@@ -139,6 +141,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Favori kokteyllerin alınması için fonksiyon
     fun getFavouriteCocktails(){
         viewModelScope.launch {
             try {
@@ -151,96 +154,110 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Favori bir yemek eklemek için fonksiyon
     fun addFavoriteMeal(favoriteMeal: FavoriteMeal) {
         viewModelScope.launch {
             try {
                 repository.insertFavoriteMeal(favoriteMeal)
-                getFavouriteMeals()
+                getFavouriteMeals() // Favori yemek listesini güncelle
             } catch (e: Exception) {
                 Log.e(TAG, "Error inserting favorite meal: $e")
             }
         }
     }
 
+    // Favori bir kokteyl eklemek için fonksiyon
     fun addFavoriteCocktail(favoriteCocktail: FavoriteCocktail){
         viewModelScope.launch {
             try {
                 repository.insertFavoriteCocktail(favoriteCocktail)
-                getFavouriteCocktails()
+                getFavouriteCocktails() // Favori kokteyller listesini güncelle
             } catch (e: Exception) {
                 Log.e(TAG, "Error inserting favorite cocktail: $e")
             }
         }
     }
 
+    // Bir favori yemeği silmek için fonksiyon
     fun deleteFavoriteMeal(favoriteMeal: FavoriteMeal) {
         viewModelScope.launch {
             try {
                 repository.deleteFavoriteMeal(favoriteMeal)
-                getFavouriteMeals()
+                getFavouriteMeals() // Favori yemek listesini güncelle
             } catch (e: Exception) {
                 Log.e(TAG, "Error deleting favorite meal: $e")
             }
         }
     }
 
+    // Bir favori kokteyli silmek için fonksiyon
     fun deleteFavoriteCocktail(favoriteCocktail: FavoriteCocktail) {
         viewModelScope.launch {
             try {
                 repository.deleteFavoriteCocktail(favoriteCocktail)
-                getFavouriteCocktails()
+                getFavouriteCocktails() // Favori kokteyller listesini güncelle
             } catch (e: Exception) {
                 Log.e(TAG, "Error deleting favorite cocktail: $e")
             }
         }
     }
 
-    //---------------------------Firebase--------------------------
 
 
+    //----------------------------------Firebase---------------------------------------------------
+
+
+
+    // Firebase ile kullanıcı işlemleri
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
-
     val currentUser: LiveData<FirebaseUser?>
         get() = _currentUser
 
-
+    // Kullanıcı kaydı için fonksiyon
     fun signup(email: String, password: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { user ->
             if (user.isSuccessful) {
-                login(email, password)
+                login(email, password) // Kayıt başarılı ise giriş yap
             } else {
                 Log.e(TAG, "Signup failed: ${user.exception}")
             }
         }
     }
 
-
+    // Kullanıcı girişi için fonksiyon
     fun login(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
                 _currentUser.value = firebaseAuth.currentUser
-            }else {
+            } else {
                 Log.e(TAG, "Login failed: ${it.exception}")
             }
         }
     }
 
+    // Kullanıcı çıkışı için fonksiyon
     fun logout() {
         firebaseAuth.signOut()
         _currentUser.value = firebaseAuth.currentUser
     }
 
-    //-------------------------NoteRoom-----------------------------------------
 
 
+
+//----------------------------Note-------------------------------------------------
+
+
+
+    // Notlar ile ilgili işlemler
     val noteList = repository.noteList
 
     private val _complete = MutableLiveData<Boolean>()
     val complete: LiveData<Boolean>
         get() = _complete
 
+    // Not ekleme fonksiyonu
     fun insertNote(note: Note) {
         viewModelScope.launch {
             try {
@@ -252,6 +269,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Not güncelleme fonksiyonu
     fun updateNote(note: Note) {
         viewModelScope.launch {
             try {
@@ -263,6 +281,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // Not silme fonksiyonu
     fun deleteNote(note: Note) {
         viewModelScope.launch {
             try {
@@ -275,11 +294,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // İşlem tamamlandıktan sonra durumu sıfırlama
     fun unsetComplete() {
         _complete.value = false
     }
-
-
-
-
 }

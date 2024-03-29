@@ -16,60 +16,57 @@ import de.syntax.androidabschluss.databinding.FragmentAssistantBinding
 import de.syntax.androidabschluss.viewmodel.OpenAiViewModel
 import kotlinx.coroutines.launch
 
-
 class AssistantFragment : Fragment() {
-
-    //Binding
+    // ViewBinding ile UI bileşenlerine erişim sağlanır.
     private lateinit var binding : FragmentAssistantBinding
-    //viewmodel initialisieren
+
+    // ViewModel, API isteklerini yönetmek için kullanılır.
     private val viewModel: OpenAiViewModel by viewModels { OpenAiViewModel.Factory }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding = FragmentAssistantBinding.inflate(inflater,container,false)
+        // Layout inflate edilir ve root view döndürülür.
+        binding = FragmentAssistantBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Um den Text zu Kopieren
+        // Chat view'ın üzerine uzun basıldığında metni kopyalama işlemi.
         binding.chatView.setOnLongClickListener {
             val textToString = binding.chatView.text.toString()
             val clipboard = ContextCompat.getSystemService(it.context, ClipboardManager::class.java) as ClipboardManager
             val clip = ClipData.newPlainText("Copied Text", textToString)
             clipboard.setPrimaryClip(clip)
             Toast.makeText(it.context, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
-            true
+            true // Event'in handle edildiğini belirtir.
         }
 
+        // "Send" butonuna tıklanınca mesaj gönderme işlemi.
         binding.sendButton.setOnClickListener {
             val inputMessage: String = binding.inputText.text.toString()
             if (inputMessage.isNotEmpty()) {
-                makeRequestToChatGpt(inputMessage)
+                makeRequestToChatGpt(inputMessage) // API isteği yapılır.
             } else {
                 Toast.makeText(requireContext(), "Please enter a message.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Observer Lifecycle
+        // API'den gelen yanıtları gözlemlemek için Observer.
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.apiResponse.observe(viewLifecycleOwner, Observer { response ->
-                // API'den gelen cevap null değilse, cevabı UI'da göster
                 response?.let {
-                    binding.chatView.text = it
+                    binding.chatView.text = it // Gelen yanıt UI'da gösterilir.
                 }
             })
         }
     }
 
+    // API isteği yapmak için kullanılan helper fonksiyon.
     private fun makeRequestToChatGpt(message: String) {
-        // API'den yanıtı almak için ViewModel'deki fonksiyonu çağır
         viewModel.getApiResponse(message)
     }
-
 }
