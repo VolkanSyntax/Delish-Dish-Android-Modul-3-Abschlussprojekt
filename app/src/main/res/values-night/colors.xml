@@ -2,15 +2,26 @@
 <resources>
 
     <color name="colorPrimary">#82AE32</color>
-    <color name="colorSecondary">#C16C9226</color>
-    <color name="colorSecondaryVariant">#C182AE32</color>
+    <color name="colorPrimary.1">#222222</color>
+    <color name="colorPrimary.2">@color/colorPrimary2</color>
+    <color name="colorSecondary">#AE3A3A3A</color>
+    <color name="colorSecondaryVariant">#A8222222</color>
     <color name="colorPrimary1">#B60829</color>
+    <color name="colorPrimary1.1">#222222</color>
+    <color name="colorPrimary1.2">@color/colorPrimary3</color>
+    <color name="colorPrimary1.3">@color/colorPrimary2</color>
+    <color name="colorPrimary1.4">#FF0000</color>
     <color name="colorSecondary2">#FF0000</color>
     <color name="colorPrimary2">#FFEE58</color>
+    <color name="colorPrimary2.1">#222222</color>
+    <color name="colorPrimary2.2">@color/colorPrimary3</color>
     <color name="colorPrimary3">#FFFFFFFF</color>
+    <color name="colorPrimary3.1">@color/colorPrimary2</color>
+    <color name="colorPrimary3.2">#222222</color>
     <color name="colorSecondary3">#B5FFFFFF</color>
     <color name="colorPrimary4">#BDBDBD</color>
     <color name="colorPrimary5">#FF000000</color>
+
 
 
 </resources>

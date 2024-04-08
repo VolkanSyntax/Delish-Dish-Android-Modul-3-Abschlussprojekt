@@ -10,7 +10,7 @@
         android:layout_height="280dp"
         android:layout_marginStart="4dp"
         android:clickable="true"
-        app:cardBackgroundColor="@color/colorPrimary1"
+        app:cardBackgroundColor="@color/colorPrimary1.1"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/produkt_text"
-                    android:textColor="@color/colorPrimary3"
+                    android:textColor="@color/colorPrimary3.1"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
                     android:layout_height="32dp"
                     android:text="@string/produkt_name_text"
                     android:textColor="@color/colorPrimary3"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </LinearLayout>

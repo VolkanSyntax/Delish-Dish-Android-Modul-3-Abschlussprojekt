@@ -49,7 +49,8 @@
     <string name="select_theme">Select Theme</string>
     <string name="light_theme">Light Theme</string>
     <string name="dark_theme">Dark Theme</string>
-    <string name="submit">submit</string>
+    <string name="submit">SUBMIT</string>
+    <string name="device_theme">Device Theme</string>
 
     <string-array name="titel_array">
         <item>Title</item>

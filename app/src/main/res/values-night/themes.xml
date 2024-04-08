@@ -1,26 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Material 3 tasarım sistemine uygun şekilde Gündüz ve Gece modları için uyarlanmış temel uygulama teması. -->
+    <!-- Base application theme adjustments for both day and night modes. -->
     <style name="Base.Theme.AndroidAbschluss" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Hem gündüz hem de gece modları için özelleştirmeler. -->
-        <!-- statusBarColor, gece modu için siyah olarak ayarlanmıştır, bu da gündüz modu için yapılan ikinci bloktaki özelleştirmelerle uyum sağlar. -->
+        <!-- Common customizations for both modes. -->
         <item name="android:statusBarColor">@color/colorPrimary5</item>
-
-        <!-- İkinci kod bloğundan: Gece moduna özgü özelleştirmeler burada geniş bir bağlam için dahil edilmiştir. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary2</item>
         <item name="colorPrimaryVariant">@color/colorSecondary</item>
         <item name="colorOnPrimary">@color/colorPrimary3</item>
         <item name="colorSecondary">@color/colorPrimary2</item>
         <item name="colorSecondaryVariant">@color/colorPrimary2</item>
         <item name="colorOnSecondary">@color/colorPrimary5</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary5</item>
         <item name="colorSurface">@color/colorPrimary3</item>
-        <item name="colorOnSurface">@color/colorPrimary5</item>
+        <item name="colorOnSurface">@color/colorPrimary3</item>
         <item name="android:textColor">@color/colorPrimary5</item>
+        <!-- Spinner style for both day and night. Defined below. -->
+        <item name="android:spinnerStyle">@style/CustomSpinnerStyle</item>
     </style>
 
-    <!-- Theme.AndroidAbschluss, güncellenmiş temel temadan miras alır. -->
-    <!-- Bu, tema özelleştirmelerinin hem gündüz hem de gece modlarında uygulanmasını sağlar. -->
+    <!-- Custom style for Spinner. -->
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner.Underlined">
+        <!-- These are default settings, actual colors are changed in day/night specific themes below. -->
+        <item name="android:popupBackground">?attr/colorSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Application theme which applies customizations. -->
     <style name="Theme.AndroidAbschluss" parent="Base.Theme.AndroidAbschluss">
-        <!-- Hem gündüz hem de gece için uygulanacak ek tema özelleştirmeleri burada eklenebilir. -->
+        <!-- Any additional customizations for your app's theme go here. -->
     </style>
 </resources>

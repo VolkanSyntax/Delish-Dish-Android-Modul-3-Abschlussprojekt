@@ -1,12 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Material 3 tasarım sistemine uygun şekilde Gündüz ve Gece modları için uyarlanmış temel uygulama teması. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.AndroidAbschluss" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Hem gündüz hem de gece modları için özelleştirmeler. -->
-        <!-- statusBarColor, gündüz modu için ikinci bloktaki özelleştirmelerle uyumlu olacak şekilde yeşil olarak ayarlanmıştır. -->
         <item name="android:statusBarColor">@color/colorPrimary</item>
-
-        <!-- İkinci kod bloğundan: Gündüz moduna özgü özelleştirmeler burada geniş bir bağlam için dahil edilmiştir. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorSecondary2</item>
         <item name="colorPrimaryVariant">@color/colorSecondary</item>
         <item name="colorOnPrimary">@color/colorPrimary3</item>
         <item name="colorSecondary">@color/colorPrimary2</item>
@@ -16,11 +12,19 @@
         <item name="colorSurface">@color/colorPrimary3</item>
         <item name="colorOnSurface">@color/colorPrimary5</item>
         <item name="android:textColor">@color/colorPrimary5</item>
+        <!-- Add other items that you need for your base theme -->
     </style>
 
-    <!-- Theme.AndroidAbschluss, güncellenmiş temel temadan miras alır. -->
-    <!-- Bu, tema özelleştirmelerinin hem gündüz hem de gece modlarında uygulanmasını sağlar. -->
+    <!-- Style for Spinner that can be used for both day and night -->
+    <style name="MySpinner" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="android:popupBackground">?attr/colorSurface</item> <!-- For dropdown background -->
+        <item name="android:textColor">?attr/colorOnSurface</item> <!-- For dropdown text color -->
+    </style>
+
+
+    <!-- Application theme -->
     <style name="Theme.AndroidAbschluss" parent="Base.Theme.AndroidAbschluss">
-        <!-- Hem gündüz hem de gece için uygulanacak ek tema özelleştirmeleri burada eklenebilir. -->
+        <item name="android:spinnerStyle">@style/MySpinner</item>
+        <!-- You can add other theme customizations here -->
     </style>
 </resources>

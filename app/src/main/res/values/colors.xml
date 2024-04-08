@@ -6,12 +6,22 @@
 
 
     <color name="colorPrimary">#82AE32</color>
+    <color name="colorPrimary.1">#82AE32</color>
+    <color name="colorPrimary.2">#82AE32</color>
     <color name="colorSecondary">#C16C9226</color>
     <color name="colorSecondaryVariant">#C182AE32</color>
     <color name="colorPrimary1">#B60829</color>
+    <color name="colorPrimary1.1">#B60829</color>
+    <color name="colorPrimary1.2">#B60829</color>
+    <color name="colorPrimary1.3">#B60829</color>
+    <color name="colorPrimary1.4">#B60829</color>
     <color name="colorSecondary2">#FF0000</color>
     <color name="colorPrimary2">#FFEE58</color>
+    <color name="colorPrimary2.1">#FFEE58</color>
+    <color name="colorPrimary2.2">#FFEE58</color>
     <color name="colorPrimary3">#FFFFFFFF</color>
+    <color name="colorPrimary3.1">#FFFFFFFF</color>
+    <color name="colorPrimary3.2">#FFFFFFFF</color>
     <color name="colorSecondary3">#B5FFFFFF</color>
     <color name="colorPrimary4">#BDBDBD</color>
     <color name="colorPrimary5">#FF000000</color>

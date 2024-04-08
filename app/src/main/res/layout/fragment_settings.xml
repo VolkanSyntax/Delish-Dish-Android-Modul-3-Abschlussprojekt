@@ -1,94 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgbildauth"
     android:alpha="0.9"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bgbildauth"
     tools:context=".ui.SettingsFragment">
 
-    <TextView
-        android:id="@+id/settings_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textColor="@color/colorPrimary3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="268dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="172dp"
-        android:backgroundTint="@color/colorSecondary2"
-        android:text="@string/logout_button"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/select_theme"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_width="201dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="38dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" >
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:ignore="MissingConstraints">
 
         <RadioButton
             android:id="@+id/btnRadioLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_oben"
+            android:fontFamily="@font/bungee_inline"
             android:text="@string/light_theme"
-            android:textColor="@color/colorPrimary5"
-            android:textSize="16sp"/>
+            android:textColor="@color/colorPrimary3"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/btnRadioDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary.1"
+            android:fontFamily="@font/bungee_inline"
             android:text="@string/dark_theme"
-            android:textColor="@color/colorPrimary5"
-            android:textSize="16sp"/>
+            android:textColor="@color/colorPrimary3"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/btnRadioDevice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Device Theme"
-            android:textColor="@color/colorPrimary5"
-            android:textSize="16sp"/>
+            android:background="@drawable/rounded_background_unten"
+            android:fontFamily="@font/bungee_inline"
+            android:text="@string/device_theme"
+            android:textColor="@color/colorPrimary3"
+            android:textSize="16sp" />
     </RadioGroup>
 
     <Button
         android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/colorPrimary.2"
+        android:fontFamily="@font/allerta_stencil"
         android:text="@string/submit"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginTop="8dp"
+        android:textColor="@color/colorPrimary3.2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:background="@color/colorSecondaryVariant"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="158dp"
+        android:layout_height="50dp"
+        android:fontFamily="@font/bungee_inline"
+        android:text="Settings"
+        android:textColor="@color/colorPrimary2.2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/materialToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="@+id/materialToolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="232dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/bungee_inline"
+        android:text="@string/select_theme"
+        android:textColor="@color/colorPrimary2"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_text" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="268dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/colorSecondary2"
+        android:text="@string/logout_button"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmit"
+        app:layout_constraintVertical_bias="0.386" />
+
+    <TextView
+        android:id="@+id/settings_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/allerta_stencil"
+        android:text="Settings"
+        android:textColor="@color/colorPrimary3"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

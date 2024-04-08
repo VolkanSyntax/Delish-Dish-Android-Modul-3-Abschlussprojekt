@@ -38,10 +38,10 @@
         android:layout_height="54dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/colorPrimary1"
+        android:backgroundTint="@color/colorPrimary1.2"
         android:text="@string/search_button"
         android:textSize="17sp"
-        android:textColor="@color/colorPrimary3"
+        android:textColor="@color/colorPrimary3.2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,21 +49,21 @@
         android:id="@+id/cocktailsRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="114dp"
+        android:layout_marginTop="122dp"
         android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cocktailListSearchButton"
         app:spanCount="2"
-        tools:listitem="@layout/item_cocktail"/>
+        tools:listitem="@layout/item_cocktail" />
 
     <Button
         android:id="@+id/assistant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="162dp"
         android:backgroundTint="@color/colorPrimary2"
         android:text="@string/recipes_generator_button"
