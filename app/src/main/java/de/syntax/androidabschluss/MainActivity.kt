@@ -46,5 +46,10 @@ class MainActivity : AppCompatActivity() {
                 binding.fragmentContainerView.findNavController().navigateUp()
             }
         })
+
     }
+
 }
+
+
+

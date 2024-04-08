@@ -18,7 +18,7 @@
         android:background="#CDFFFFFF"
         android:clickable="false"
         android:entries="@array/titel_array"
-        android:outlineAmbientShadowColor="@color/delish_yellow"
+        android:outlineAmbientShadowColor="@color/colorPrimary2"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="104dp"
-        android:backgroundTint="@color/delish_yellow"
+        android:backgroundTint="@color/colorPrimary2"
         android:text="@string/save_button"
-        android:textColor="@color/delish_black"
+        android:textColor="@color/colorPrimary5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_edit" />
 
@@ -44,7 +44,7 @@
         android:layout_marginTop="3dp"
         android:backgroundTint="#2EB573"
         android:text="@string/cancel_button"
-        android:textColor="@color/delish_white"
+        android:textColor="@color/colorPrimary3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_edit" />
 
@@ -61,7 +61,7 @@
         android:hint="@string/start_typing_text"
         android:inputType="textMultiLine"
         android:lineSpacingMultiplier="1.0"
-        android:textColor="@color/delish_black"
+        android:textColor="@color/colorPrimary5"
         android:textColorHint="#72414141"
         app:layout_constraintTop_toBottomOf="@+id/food_spinner"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +84,7 @@
         android:layout_height="57dp"
         android:fontFamily="@font/bungee_inline"
         android:text="@string/your_notes_überschrift"
-        android:textColor="@color/delish_yellow"
+        android:textColor="@color/colorPrimary2"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

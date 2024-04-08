@@ -13,8 +13,8 @@ android:background="@drawable/bgdetail">
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/delish_red"
-
+        android:backgroundTint="@color/colorPrimary1"
+        android:textColor="@color/colorPrimary3"
         android:gravity="center"
         android:text="@string/send_button"
         android:textStyle="bold"
@@ -29,7 +29,7 @@ android:background="@drawable/bgdetail">
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:text="@string/asistent_recipes_generator_überschrift"
-        android:textColor="@color/delish_yellow"
+        android:textColor="@color/colorPrimary2"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,22 +45,22 @@ android:background="@drawable/bgdetail">
         android:layout_marginTop="20dp"
         android:hint="@string/asistent_enter_your_recipe"
         android:singleLine="true"
-        android:textColor="@color/delish_yellow"
-        android:textColorHint="@color/delish_grey"
-        android:backgroundTint="@color/delish_white"
+        android:textColor="@color/colorPrimary2"
+        android:textColorHint="@color/colorSecondary3"
+        android:backgroundTint="@color/colorPrimary3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview" />
 
     <ScrollView
         android:id="@+id/botview"
-        android:layout_width="394dp"
-        android:layout_height="626dp"
+        android:layout_width="409dp"
+        android:layout_height="584dp"
 
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputText">
 
@@ -70,7 +70,7 @@ android:background="@drawable/bgdetail">
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="@string/assistent_message"
-            android:textColor="@color/delish_yellow"
+            android:textColor="@color/colorPrimary2"
             android:textSize="16sp" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

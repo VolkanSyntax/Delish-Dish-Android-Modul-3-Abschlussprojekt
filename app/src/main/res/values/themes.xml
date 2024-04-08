@@ -1,10 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Material 3 tasarım sistemine uygun şekilde Gündüz ve Gece modları için uyarlanmış temel uygulama teması. -->
     <style name="Base.Theme.AndroidAbschluss" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:statusBarColor">@color/delish_black</item>
+        <!-- Hem gündüz hem de gece modları için özelleştirmeler. -->
+        <!-- statusBarColor, gündüz modu için ikinci bloktaki özelleştirmelerle uyumlu olacak şekilde yeşil olarak ayarlanmıştır. -->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+
+        <!-- İkinci kod bloğundan: Gündüz moduna özgü özelleştirmeler burada geniş bir bağlam için dahil edilmiştir. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorSecondary</item>
+        <item name="colorOnPrimary">@color/colorPrimary3</item>
+        <item name="colorSecondary">@color/colorPrimary2</item>
+        <item name="colorSecondaryVariant">@color/colorPrimary2</item>
+        <item name="colorOnSecondary">@color/colorPrimary5</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="colorSurface">@color/colorPrimary3</item>
+        <item name="colorOnSurface">@color/colorPrimary5</item>
+        <item name="android:textColor">@color/colorPrimary5</item>
     </style>
 
-    <style name="Theme.AndroidAbschluss" parent="Base.Theme.AndroidAbschluss" />
+    <!-- Theme.AndroidAbschluss, güncellenmiş temel temadan miras alır. -->
+    <!-- Bu, tema özelleştirmelerinin hem gündüz hem de gece modlarında uygulanmasını sağlar. -->
+    <style name="Theme.AndroidAbschluss" parent="Base.Theme.AndroidAbschluss">
+        <!-- Hem gündüz hem de gece için uygulanacak ek tema özelleştirmeleri burada eklenebilir. -->
+    </style>
 </resources>
