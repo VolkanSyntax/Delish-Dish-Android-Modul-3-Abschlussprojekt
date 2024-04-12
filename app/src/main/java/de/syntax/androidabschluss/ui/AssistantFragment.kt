@@ -38,7 +38,7 @@ class AssistantFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         binding.sendButton.setOnClickListener {
-            view.context.hideKeyBoard(it) // Versteckt die Tastatur
+            view.context.hideKeyBoard(it)
 
             val messageText = binding.inputText.text.toString().trim()
             if (messageText.isNotEmpty()) {
@@ -48,7 +48,7 @@ class AssistantFragment : Fragment(){
 
 
             } else {
-                view.context.longToastShow("Bitte eingabe machen vorher!") // auch im utils für cleaneren code
+                view.context.longToastShow("Bitte eingabe machen vorher!")
             }
         }
 

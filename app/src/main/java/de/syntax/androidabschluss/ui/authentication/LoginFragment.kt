@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.databinding.FragmentLoginBinding
+import de.syntax.androidabschluss.utils.hideKeyBoard
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 
 
@@ -53,6 +54,9 @@ class LoginFragment : Fragment() {
             if (user != null) {
                 findNavController().navigate(R.id.recipeListFragment)
             }
+        }
+        binding.loginHintergrund.setOnClickListener {
+            view.context.hideKeyBoard(it)
         }
     }
 }

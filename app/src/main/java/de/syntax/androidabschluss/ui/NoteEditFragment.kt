@@ -85,7 +85,7 @@ class NoteEditFragment : Fragment() {
         }
 
         binding.editNoteHintergrund.setOnClickListener {
-           view.context.hideKeyBoard(it)  // klavye gizleme temiz kod (>.<)
+           view.context.hideKeyBoard(it)
         }
     }
 

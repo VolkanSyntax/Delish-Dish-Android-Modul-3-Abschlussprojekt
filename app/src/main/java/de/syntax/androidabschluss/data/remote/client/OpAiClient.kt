@@ -22,10 +22,10 @@ object OpAiClient {
     fun getInstance() : ApiInterface {
         synchronized(this){
             return INSTANCE ?: Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(okHttpClient)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build()
+                .baseUrl(BASE_URL) //im utils ordner
+                .client(okHttpClient)  // timeout
+                .addConverterFactory(MoshiConverterFactory.create()) //moshifactory benutzen
+                .build()            //
                 .create(ApiInterface::class.java)
                 .also {
                     INSTANCE = it

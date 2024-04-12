@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import de.syntax.androidabschluss.databinding.FragmentNoteAddBinding
 import de.syntax.androidabschluss.local.Note
+import de.syntax.androidabschluss.utils.hideKeyBoard
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 
 
@@ -55,7 +56,7 @@ class NoteAddFragment : Fragment() {
         }
 
         binding.addNoteHintergrund.setOnClickListener {
-            hideKeyboard()
+            view.context.hideKeyBoard(it)
         }
     }
 
@@ -67,10 +68,4 @@ class NoteAddFragment : Fragment() {
         viewModel.insertNote(newNote) // ViewModel aracılığıyla notu kaydetme.
     }
 
-
-
-    private fun hideKeyboard() {
-        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(binding.root.windowToken, 0)
-    }
 }
