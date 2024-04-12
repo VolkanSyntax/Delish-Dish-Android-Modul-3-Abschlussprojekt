@@ -65,7 +65,7 @@ class Repository(
             cocktailApiService.cocktailsList().drinks // API'den tüm kokteyllerin listesini çeker
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching cocktails: $e") // Hata durumunda loglama yapar
-            null // Hata durumunda null döner
+            emptyList() // Hata durumunda boş bir liste döner
         }
     }
 

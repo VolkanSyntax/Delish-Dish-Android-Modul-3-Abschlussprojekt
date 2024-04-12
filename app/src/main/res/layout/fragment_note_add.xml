@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_note_hintergrund"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgbildauth"
     android:alpha="0.96"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:background="@drawable/bgbildauth">
 
 
     <Spinner
-        android:id="@+id/food_spinner"
+        android:id="@+id/add_food_spinner"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="75dp"
@@ -51,8 +51,8 @@
         android:id="@+id/name_edit"
         android:layout_width="match_parent"
         android:layout_height="482dp"
-        android:layout_marginTop="8dp"
         android:layout_margin="6dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="6dp"
         android:background="@drawable/edittext_background"
         android:ems="10"
@@ -62,9 +62,9 @@
         android:lineSpacingMultiplier="1.0"
         android:textColor="@color/colorPrimary5"
         android:textColorHint="#72414141"
-        app:layout_constraintTop_toBottomOf="@+id/food_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/add_food_spinner" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"

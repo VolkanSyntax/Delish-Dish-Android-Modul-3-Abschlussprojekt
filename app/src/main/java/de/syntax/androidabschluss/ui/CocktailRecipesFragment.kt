@@ -1,9 +1,11 @@
 package de.syntax.androidabschluss.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,6 +35,7 @@ class CocktailRecipesFragment : Fragment() {
         binding.cocktailListSearchButton.setOnClickListener {
             val searchValues = binding.cocktailListEditTextSearch.text.toString()
             viewModel.searchCocktails(searchValues)
+            hideKeyboard(view)
         }
 
         // Yardımcı asistan ekranına geçiş yapar.
@@ -49,5 +52,10 @@ class CocktailRecipesFragment : Fragment() {
             binding.cocktailsRV.adapter = CocktailAdapter(cocktails,viewModel)
         }
         viewModel.getCocktails() // Kokteyl listesini çekmek için ViewModel'deki fonksiyonu çağırır.
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

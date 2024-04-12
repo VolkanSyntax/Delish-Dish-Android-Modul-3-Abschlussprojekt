@@ -38,7 +38,7 @@ class NoteAddFragment : Fragment() {
         }
 
         // Spinner'a dokunulduğunda klavyeyi gizleme.
-        binding.foodSpinner.setOnTouchListener { _, _ ->
+        binding.addFoodSpinner.setOnTouchListener { _, _ ->
             val imm: InputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
             false
@@ -53,13 +53,24 @@ class NoteAddFragment : Fragment() {
         binding.cancelButton.setOnClickListener {
             findNavController().navigate(NoteAddFragmentDirections.actionNoteAddFragment2ToNoteFragment())
         }
+
+        binding.addNoteHintergrund.setOnClickListener {
+            hideKeyboard()
+        }
     }
 
     // EditText ve Spinner'dan alınan değerlerle yeni bir not oluşturup kaydetme.
     private fun getValuesAndSave() {
         val title = binding.nameEdit.text.toString()
-        val text = binding.foodSpinner.selectedItem.toString()
+        val text = binding.addFoodSpinner.selectedItem.toString()
         val newNote = Note(title = title, text = text)
         viewModel.insertNote(newNote) // ViewModel aracılığıyla notu kaydetme.
+    }
+
+
+
+    private fun hideKeyboard() {
+        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

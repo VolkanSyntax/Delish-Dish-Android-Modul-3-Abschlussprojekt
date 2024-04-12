@@ -1,9 +1,12 @@
 package de.syntax.androidabschluss.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,6 +36,7 @@ class NoteEditFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,6 +50,8 @@ class NoteEditFragment : Fragment() {
             binding.editFoodSpinner.setSelection(index)
         }
 
+
+
         // Not kaydı tamamlandığında otomatik olarak not listesi ekranına dönme.
         viewModel.complete.observe(viewLifecycleOwner) {
             if (it) {
@@ -53,6 +59,15 @@ class NoteEditFragment : Fragment() {
                 viewModel.unsetComplete() // Tamamlama durumunu sıfırlama.
             }
         }
+
+        // Spinner'a dokunulduğunda klavyeyi gizleme.
+        binding.editFoodSpinner.setOnTouchListener { _, _ ->
+            val imm: InputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            false
+        }
+
+
 
         // "Save" butonuna tıklandığında notun güncellenmesi.
         binding.editSaveButton.setOnClickListener {
@@ -67,6 +82,10 @@ class NoteEditFragment : Fragment() {
                 viewModel.deleteNote(note)
             }
         }
+
+        binding.editNoteHintergrund.setOnClickListener {
+            hideKeyboard()
+        }
     }
 
     // UI'dan alınan yeni değerlerle notu güncelleme.
@@ -74,5 +93,10 @@ class NoteEditFragment : Fragment() {
         note.title = binding.editNameTextfield.text.toString()
         note.text = binding.editFoodSpinner.selectedItem.toString()
         viewModel.updateNote(note)
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

@@ -2,10 +2,12 @@ package de.syntax.androidabschluss.ui
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -50,8 +52,9 @@ class AssistantFragment : Fragment() {
             val inputMessage: String = binding.inputText.text.toString()
             if (inputMessage.isNotEmpty()) {
                 makeRequestToChatGpt(inputMessage) // API isteği yapılır.
+                hideKeyboard()
             } else {
-                Toast.makeText(requireContext(), "Please enter a message.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please enter your recipe or cocktail recipe request", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -68,5 +71,10 @@ class AssistantFragment : Fragment() {
     // API isteği yapmak için kullanılan helper fonksiyon.
     private fun makeRequestToChatGpt(message: String) {
         viewModel.getApiResponse(message)
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }
