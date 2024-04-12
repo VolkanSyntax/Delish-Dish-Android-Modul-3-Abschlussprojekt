@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import de.syntax.androidabschluss.R
 import de.syntax.androidabschluss.databinding.FragmentNoteEditBinding
 import de.syntax.androidabschluss.local.Note
+import de.syntax.androidabschluss.utils.hideKeyBoard
 import de.syntax.androidabschluss.viewmodel.MainViewModel
 
 
@@ -84,7 +85,7 @@ class NoteEditFragment : Fragment() {
         }
 
         binding.editNoteHintergrund.setOnClickListener {
-            hideKeyboard()
+           view.context.hideKeyBoard(it)  // klavye gizleme temiz kod (>.<)
         }
     }
 
@@ -95,8 +96,5 @@ class NoteEditFragment : Fragment() {
         viewModel.updateNote(note)
     }
 
-    private fun hideKeyboard() {
-        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(binding.root.windowToken, 0)
-    }
+
 }

@@ -7,6 +7,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     // Kotlin Symbol Processing (KSP) plugin'ini uygular, bu sayede annotation işlemleri için hızlı ve etkili bir altyapı sağlanır.
     id("com.google.devtools.ksp")
+    id("kotlin-kapt")
+
     // Google Services Gradle Plugin'ini ekler. Firebase gibi Google hizmetlerini projeye entegre etmek için gereklidir.
     id("com.google.gms.google-services")
 }
@@ -77,6 +79,9 @@ android {
 }
 
 dependencies {
+
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+
     // OpenAI için gerekli bağımlılıklar.
     implementation("com.aallam.openai:openai-client")
     implementation "com.aallam.openai:openai-client:3.7.0"

@@ -1,24 +1,82 @@
 package de.syntax.androidabschluss.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
+import de.syntax.androidabschluss.data.models.Message
 import de.syntax.androidabschluss.databinding.FragmentAssistantBinding
-import de.syntax.androidabschluss.viewmodel.OpenAiViewModel
-import kotlinx.coroutines.launch
+import de.syntax.androidabschluss.utils.hideKeyBoard
+import de.syntax.androidabschluss.utils.longToastShow
+import de.syntax.androidabschluss.viewmodel.ChatViewModel
 
-class AssistantFragment : Fragment() {
+
+class AssistantFragment : Fragment(){
+    private lateinit var binding : FragmentAssistantBinding
+
+    // ViewModel
+    private val viewModel: ChatViewModel by lazy {
+        ViewModelProvider(this).get(ChatViewModel::class.java)
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Layout inflate edilir ve root view döndürülür.
+        binding = FragmentAssistantBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+
+//InputText, Chatview, sendbutton
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.sendButton.setOnClickListener {
+            view.context.hideKeyBoard(it) // Versteckt die Tastatur
+
+            val messageText = binding.inputText.text.toString().trim()
+            if (messageText.isNotEmpty()) {
+                val message = Message(content = messageText, role = "user")
+                viewModel.createChatCompletion(listOf(message), "gpt-3.5-turbo") // Modell entsprechend anpassen 3.5 ist billiger
+                binding.inputText.text = null
+
+
+            } else {
+                view.context.longToastShow("Bitte eingabe machen vorher!") // auch im utils für cleaneren code
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.chatView.visibility = if (isLoading) View.GONE else View.VISIBLE
+        }
+
+        viewModel.chatResponse.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                binding.chatView.text = it
+            }
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                binding.chatView.text = it
+            }
+        }
+    }
+
+
+
+
+
+
+}
+/**class AssistantFragment : Fragment() {
     // ViewBinding ile UI bileşenlerine erişim sağlanır.
     private lateinit var binding : FragmentAssistantBinding
 
@@ -78,3 +136,4 @@ class AssistantFragment : Fragment() {
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }
+**/
