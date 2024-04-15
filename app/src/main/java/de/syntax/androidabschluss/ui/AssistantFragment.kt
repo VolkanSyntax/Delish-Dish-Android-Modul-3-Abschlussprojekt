@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.syntax.androidabschluss.data.models.Message
 import de.syntax.androidabschluss.databinding.FragmentAssistantBinding
+import de.syntax.androidabschluss.utils.copyToClipboard
 import de.syntax.androidabschluss.utils.hideKeyBoard
 import de.syntax.androidabschluss.utils.longToastShow
 import de.syntax.androidabschluss.viewmodel.ChatViewModel
@@ -67,6 +68,10 @@ class AssistantFragment : Fragment(){
             error?.let {
                 binding.chatView.text = it
             }
+        }
+        binding.chatView.setOnLongClickListener {
+            context?.copyToClipboard(binding.chatView.text, "Chat Text")
+            true // Long click eventini burada sonlandırıyoruz.
         }
     }
 
