@@ -22,7 +22,7 @@ Delish-Dish ist eine mobile Anwendung, entwickelt als Android Modul im Rahmen ei
 
 
 ### Light Theme
-![Light Theme]([/path/to/L](https://github.com/SI-Classroom-Batch-013/android-abschluss-VolkanSyntax/assets/148045998/8739ba3a-ceeb-4f8b-b85e-34b3a8f1beea))
+![Light-Theme](https://github.com/SI-Classroom-Batch-013/android-abschluss-VolkanSyntax/assets/148045998/0a089784-84b7-4adb-9616-0c54d6ed151a)
 *Light Theme bietet ein helles und klares Benutzererlebnis, perfekt für die Nutzung bei Tageslicht.*
 
 ### Dark Theme
@@ -36,4 +36,5 @@ git clone https://github.com/SI-Classroom-Batch-013/android-abschluss-VolkanSynt
 
 # Führen Sie die Anwendung aus
 # Öffnen Sie es in Android Studio und starten Sie es auf einem Emulator oder laden Sie es auf ein echtes Gerät.
+
 
