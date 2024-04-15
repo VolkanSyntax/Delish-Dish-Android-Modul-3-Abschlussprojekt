@@ -29,7 +29,7 @@ gewünschte Rezept nicht verfügbar ist, greift der von GPT-3.5 Turbo unterstüt
 ```bash
 
 # Klonen Sie das Projekt auf Ihren lokalen Computer
-git clone https://github.com/yourusername/delish-dish.git
+git clone https://github.com/SI-Classroom-Batch-013/android-abschluss-VolkanSyntax.git
 
 # Führen Sie die Anwendung aus
 # Öffnen Sie es in Android Studio und starten Sie es auf einem Emulator oder laden Sie es auf ein echtes Gerät.
