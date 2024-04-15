@@ -1,4 +1,4 @@
-# Delish-Dish Anwendung
+# Delish-Dish Anwendung - Android Studio Abschlussprojekt
 
 ## Über das Projekt
 Delish-Dish ist eine mobile Anwendung, entwickelt in Android Studio mit der Programmiersprache Kotlin. 
