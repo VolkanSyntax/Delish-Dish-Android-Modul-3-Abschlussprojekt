@@ -1,6 +1,11 @@
 # Delish-Dish Anwendung - Android Studio Abschlussprojekt
 
-Delish-Dish ist eine mobile Anwendung, entwickelt als Android Modul im Rahmen eines Abschlussprojekts in Android Studio mit der Programmiersprache Kotlin. Diese Anwendung ermöglicht es Benutzern, verschiedene Rezepte für Speisen und Cocktails zu sehen und in ihren Küchen zu verwenden. Die Anwendung arbeitet integriert mit Rezepten, die von einer RESTful-API geliefert werden, und falls das gewünschte Rezept nicht verfügbar ist, greift der von GPT-3.5 Turbo unterstützte Künstliche Intelligenz Rezeptgenerator (Recipes Generator) ein. Dieser KI ist ausschließlich auf die Erstellung von Speisen- und Cocktailrezepten beschränkt.
+Delish-Dish ist eine mobile Anwendung, entwickelt als Android Modul im Rahmen eines Abschlussprojekts in Android Studio mit der Programmiersprache Kotlin. 
+Diese Anwendung ermöglicht es Benutzern, verschiedene Rezepte für Speisen und Cocktails zu sehen und in ihren Küchen zu verwenden. 
+Die Anwendung arbeitet integriert mit Rezepten, die von einer RESTful-API geliefert werden, und falls das gewünschte Rezept nicht 
+verfügbar ist, greift der von GPT-3.5 Turbo 
+unterstützte Künstliche Intelligenz Rezeptgenerator 
+(Recipes Generator) ein. Dieser KI ist ausschließlich auf die Erstellung von Speisen- und Cocktailrezepten beschränkt.
 
 ## Funktionen
 - **Rezeptansicht**: Sehen Sie Speisen- und Cocktailrezepte einfach an.
