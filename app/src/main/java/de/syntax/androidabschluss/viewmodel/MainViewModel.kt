@@ -11,7 +11,10 @@ import com.google.firebase.auth.FirebaseUser
 import de.syntax.androidabschluss.data.Repository
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.data.models.Meal
+import de.syntax.androidabschluss.data.models.Message
+import de.syntax.androidabschluss.data.models.request.ChatRequest
 import de.syntax.androidabschluss.data.remote.CocktailApi
+import de.syntax.androidabschluss.data.remote.OpenAiApiService
 import de.syntax.androidabschluss.data.remote.RecipeApi
 import de.syntax.androidabschluss.local.FavoriteCocktail
 import de.syntax.androidabschluss.local.FavoriteMeal
@@ -26,7 +29,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // Repository'nin başlatılması ve servislerin, veritabanlarının tanımlanması
     private val repository = Repository(RecipeApi.retrofitService,
-        CocktailApi.retrofitService, getMealDatabase(application),
+        CocktailApi.retrofitService, OpenAiApiService.apiInterface, getMealDatabase(application),
         getCocktailDatabase(application), getNoteDatabase(application))
 
     // LiveData tanımlamaları ve MutableLiveData kullanarak verilerin saklanması
@@ -53,6 +56,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _favouriteCocktailsLiveData = MutableLiveData<List<FavoriteCocktail>>()
     val favouriteCocktailsLiveData: LiveData<List<FavoriteCocktail>>
         get() = _favouriteCocktailsLiveData
+
+
+    val chatResponse = MutableLiveData<String?>()
+    val errorMessage = MutableLiveData<String?>()
+    val isLoading = MutableLiveData<Boolean>()
 
     init {
         // Başlangıçta favori yemek ve kokteyllerin yüklenmesi
@@ -297,5 +305,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // İşlem tamamlandıktan sonra durumu sıfırlama
     fun unsetComplete() {
         _complete.value = false
+    }
+
+//-------------------------- OpenAiAssistant--------------------------------------------
+
+    fun createChatCompletion(messages: List<Message>, model: String) {
+        isLoading.postValue(true)
+        val request = ChatRequest(messages, model)
+        repository.createChatCompletion(request, { response ->
+            isLoading.postValue(false)
+            chatResponse.postValue(response?.choices?.firstOrNull()?.message?.content)
+        }, { error ->
+            isLoading.postValue(false)
+            errorMessage.postValue(error)
+        })
     }
 }

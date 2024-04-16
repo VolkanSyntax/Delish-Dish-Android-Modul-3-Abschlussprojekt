@@ -4,7 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.data.models.Meal
+import de.syntax.androidabschluss.data.models.request.ChatRequest
+import de.syntax.androidabschluss.data.models.response.ChatResponse
+import de.syntax.androidabschluss.data.remote.ApiInterface
 import de.syntax.androidabschluss.data.remote.CocktailApiService
+import de.syntax.androidabschluss.data.remote.OPENAI_API_KEY
 import de.syntax.androidabschluss.data.remote.RecipeApiService
 import de.syntax.androidabschluss.local.FavoriteCocktail
 import de.syntax.androidabschluss.local.FavoriteCocktailDatabase
@@ -12,6 +16,9 @@ import de.syntax.androidabschluss.local.FavoriteMeal
 import de.syntax.androidabschluss.local.FavoriteMealDatabase
 import de.syntax.androidabschluss.local.Note
 import de.syntax.androidabschluss.local.NoteDatabase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 const val TAG = "Repository"
@@ -21,6 +28,9 @@ class Repository(
     private val recipeApiService: RecipeApiService,
     // Kokteyl tarifleri için API servisi
     private val cocktailApiService: CocktailApiService,
+
+    private val chatApiService: ApiInterface,
+
     // Favori yemekler için yerel veritabanı
     private val favoriteMealDb: FavoriteMealDatabase,
     // Favori kokteyller için yerel veritabanı
@@ -165,4 +175,34 @@ class Repository(
             Log.e(TAG, "Error deleting from database: $e") // Hata durumunda loglama yapar
         }
     }
+
+
+
+
+    // Chat işlemlerini gerçekleştiren fonksiyon
+    fun createChatCompletion(
+        chatRequest: ChatRequest,
+        onSuccess: (ChatResponse?) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        chatApiService.createChatCompletion(chatRequest, "application/json", "Bearer $OPENAI_API_KEY")
+            .enqueue(object : Callback<ChatResponse> {
+                override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
+                    if (response.isSuccessful) {
+                        onSuccess(response.body())
+                    } else {
+                        onError("API call successful but returned an error: ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
+                    onError("API call failed: ${t.message}")
+                }
+            })
+    }
+
+
+
+
+
 }
