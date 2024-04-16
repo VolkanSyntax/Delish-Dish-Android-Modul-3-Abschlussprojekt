@@ -44,12 +44,3 @@ unterstützte Künstliche Intelligenz Rezeptgenerator
 ![Dark-Theme](https://github.com/SI-Classroom-Batch-013/android-abschluss-VolkanSyntax/assets/148045998/f4903da1-62e3-4fd0-87b8-02861d4ecd20)
 
 
-## Installation
-```bash
-# Klonen Sie das Projekt auf Ihren lokalen Computer
-git clone https://github.com/SI-Classroom-Batch-013/android-abschluss-VolkanSyntax.git
-
-# Führen Sie die Anwendung aus
-# Öffnen Sie es in Android Studio und starten Sie es auf einem Emulator oder laden Sie es auf ein echtes Gerät.
-
-
