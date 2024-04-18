@@ -19,9 +19,11 @@ class CocktailDetailFragment : Fragment() {
     private lateinit var binding: FragmentCocktailDetailBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Fragment layout'unun inflate işlemi ve binding nesnesinin başlatılması.
-        binding = FragmentCocktailDetailBinding.inflate(inflater,container,false)
+        // Inflation des Fragment-Layouts und Initialisierung des Binding-Objekts.
+        binding = FragmentCocktailDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -29,10 +31,12 @@ class CocktailDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // ViewModel'deki kokteyl detaylarını gözlemleyip UI'ı güncelleme.
+        // Beobachtung der Cocktaildetails im ViewModel und Aktualisierung der UI.
         viewModel.cocktailDetailLiveData.observe(viewLifecycleOwner) { cocktail ->
             updateUI(cocktail) // UI güncelleme işlemi.
 
             // Kokteylin favori olup olmadığını kontrol etme ve UI'ı buna göre güncelleme.
+            // Überprüfung, ob der Cocktail ein Favorit ist, und entsprechende Aktualisierung der UI.
             viewModel.favouriteCocktailsLiveData.observe(viewLifecycleOwner) { favoriteCocktails ->
                 var isFavorite = false
                 for (favoriteCocktail in favoriteCocktails) {
@@ -43,9 +47,11 @@ class CocktailDetailFragment : Fragment() {
                 }
 
                 // Favori durumuna göre görseli güncelleme.
+                // Aktualisierung der Grafik je nach Favoritenstatus.
                 binding.addcocktail.setImageResource(if (isFavorite) R.drawable.favoritefill else R.drawable.favoriteempty)
 
                 // Favori ekleme veya çıkarma işlemi.
+                // Prozess zum Hinzufügen oder Entfernen von Favoriten.
                 binding.addcocktail.setOnClickListener {
                     if (isFavorite) {
                         viewModel.deleteFavoriteCocktail(FavoriteCocktail(cocktail.idDrink, cocktail.strDrink, cocktail.strDrinkThumb, cocktail.strCategory, cocktail.strInstructions))
@@ -61,6 +67,7 @@ class CocktailDetailFragment : Fragment() {
     }
 
     // Kokteyl detaylarını göstermek için UI güncelleme.
+    // Aktualisierung der UI, um Cocktaildetails anzuzeigen.
     private fun updateUI(drinks: Cocktail?){
         drinks?.let {
             binding.cocktailDetailTitle.text = drinks.strDrink
@@ -77,11 +84,13 @@ class CocktailDetailFragment : Fragment() {
 }
 
 // Kokteylin içindekiler listesini oluşturma.
+// Erstellung der Liste der Zutaten für den Cocktail.
 private fun getIngredients(cocktails: Cocktail): String {
     return listOfNotNull(cocktails.strIngredient1,cocktails.strIngredient2,cocktails.strIngredient3).joinToString (",")
 }
 
 // Kokteylin ölçümler listesini oluşturma.
+// Erstellung der Messliste für den Cocktail.
 private fun getMeasures(coctail: Cocktail): String{
     return  listOfNotNull(coctail.strMeasure1,coctail.strMeasure2,coctail.strMeasure3).joinToString(",")
 }

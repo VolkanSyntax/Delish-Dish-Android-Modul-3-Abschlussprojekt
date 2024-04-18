@@ -25,187 +25,217 @@ import de.syntax.androidabschluss.local.getNoteDatabase
 import kotlinx.coroutines.launch
 
 
+// Ana ViewModel sınıfı, AndroidViewModel'den türetilmiştir ve uygulama bağlamını kullanır.
+// Haupt-ViewModel-Klasse, abgeleitet von AndroidViewModel, verwendet den Anwendungskontext.
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Repository'nin başlatılması ve servislerin, veritabanlarının tanımlanması
-    private val repository = Repository(RecipeApi.retrofitService,
-        CocktailApi.retrofitService, OpenAiApiService.apiInterface, getMealDatabase(application),
-        getCocktailDatabase(application), getNoteDatabase(application))
+    // Repository başlatılır ve API servisleri ile yerel veritabanları tanımlanır.
+    // Repository wird initialisiert und API-Dienste sowie lokale Datenbanken werden definiert.
+    private val repository = Repository(
+        RecipeApi.retrofitService,
+        CocktailApi.retrofitService,
+        OpenAiApiService.apiInterface,
+        getMealDatabase(application),
+        getCocktailDatabase(application),
+        getNoteDatabase(application)
+    )
 
-    // LiveData tanımlamaları ve MutableLiveData kullanarak verilerin saklanması
+    // Yemeklerle ilgili verileri saklamak için MutableLiveData tanımlanır ve dışarıya LiveData olarak sunulur.
+    // MutableLiveData wird definiert, um Daten über Mahlzeiten zu speichern, und als LiveData nach außen bereitgestellt.
     private val _mealsLiveData = MutableLiveData<List<Meal>>()
     val mealsLiveData: LiveData<List<Meal>>
         get() = _mealsLiveData
 
+    // Kokteyllerle ilgili verileri saklamak için MutableLiveData tanımlanır ve dışarıya LiveData olarak sunulur.
+    // MutableLiveData wird definiert, um Daten über Cocktails zu speichern, und als LiveData nach außen bereitgestellt.
     private val _cocktailsLiveData = MutableLiveData<List<Cocktail>>()
     val cocktailsLiveData: LiveData<List<Cocktail>>
         get() = _cocktailsLiveData
 
+    // Seçili bir yemeğin detaylarını saklamak için MutableLiveData tanımlanır ve dışarıya LiveData olarak sunulur.
+    // MutableLiveData wird definiert, um Details einer ausgewählten Mahlzeit zu speichern, und als LiveData nach außen bereitgestellt.
     private val _mealDetailLiveData = MutableLiveData<Meal>()
     val mealDetailLiveData: LiveData<Meal>
         get() = _mealDetailLiveData
 
+    // Seçili bir kokteylin detaylarını saklamak için MutableLiveData tanımlanır ve dışarıya LiveData olarak sunulur.
+    // MutableLiveData wird definiert, um Details eines ausgewählten Cocktails zu speichern, und als LiveData nach außen bereitgestellt.
     private val _cocktailDetailLiveData = MutableLiveData<Cocktail>()
     val cocktailDetailLiveData: LiveData<Cocktail>
         get() = _cocktailDetailLiveData
 
+    // Kullanıcının favori yemeklerini saklamak için MutableLiveData tanımlanır ve dışarıya LiveData olarak sunulur.
+    // MutableLiveData wird definiert, um Lieblingsmahlzeiten des Benutzers zu speichern, und als LiveData nach außen bereitgestellt.
     private val _favouriteMealsLiveData = MutableLiveData<List<FavoriteMeal>>()
     val favouriteMealsLiveData: LiveData<List<FavoriteMeal>>
         get() = _favouriteMealsLiveData
 
+    // Kullanıcının favori kokteyllerini saklamak için MutableLiveData tanımlanır ve dışarıya LiveData olarak sunulur.
+    // MutableLiveData wird definiert, um Lieblingscocktails des Benutzers zu speichern, und als LiveData nach außen bereitgestellt.
     private val _favouriteCocktailsLiveData = MutableLiveData<List<FavoriteCocktail>>()
     val favouriteCocktailsLiveData: LiveData<List<FavoriteCocktail>>
         get() = _favouriteCocktailsLiveData
 
 
-    val chatResponse = MutableLiveData<String?>()
-    val errorMessage = MutableLiveData<String?>()
-    val isLoading = MutableLiveData<Boolean>()
-
     init {
-        // Başlangıçta favori yemek ve kokteyllerin yüklenmesi
+        // Uygulama başlatıldığında favori yemek ve kokteyllerin yüklenmesi.
+        // Lädt die Lieblingsmahlzeiten und -cocktails beim Start der Anwendung.
         getFavouriteMeals()
         getFavouriteCocktails()
     }
 
-    private  var  TAG = "MainViewModel"
+    private var TAG = "MainViewModel" // Loglama için kullanılan etiket.
 
-    // Yemek listesinin alınması için fonksiyon
+    // Yemek listesini çekmek için kullanılan fonksiyon.
+// Funktion zum Abrufen der Mahlzeitenliste.
     fun getMeals() {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope.
             try {
-                _mealsLiveData.postValue(repository.getMeals())
+                _mealsLiveData.postValue(repository.getMeals()) // Repository'den yemeklerin çekilip LiveData'ya postalanması.
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching meals: $e")
+                Log.e(TAG, "Error fetching meals: $e") // Hata olması durumunda loglama.
             }
         }
     }
 
-    // Yemek araması yapma fonksiyonu
+    // Belirli bir sorguya göre yemek araması yapmak için kullanılan fonksiyon.
+// Funktion zur Suche nach Mahlzeiten basierend auf einer bestimmten Anfrage.
     fun searchMeals(query: String) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope.
             try {
-                _mealsLiveData.postValue(repository.searchMeals(query))
+                _mealsLiveData.postValue(repository.searchMeals(query)) // Repository'den yemeklerin aratılıp sonuçların LiveData'ya postalanması.
             } catch (e: Exception) {
-                Log.e(TAG, "Error searching meals: $e")
+                Log.e(TAG, "Error searching meals: $e") // Hata olması durumunda loglama.
             }
         }
     }
 
     // Yemek detayının alınması için fonksiyon
+// Funktion, um die Details einer Mahlzeit abzurufen
     fun getMealDetail(mealId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope başlatılır.
             try {
-                _mealDetailLiveData.postValue(repository.getMealDetail(mealId))
+                _mealDetailLiveData.postValue(repository.getMealDetail(mealId)) // Repository'den belirli bir yemek ID'sine göre detayların çekilmesi.
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching meal detail: $e")
+                Log.e(TAG, "Error fetching meal detail: $e") // Hata durumunda hata loglanır.
             }
         }
     }
 
     // Kokteyl listesinin alınması için fonksiyon
+// Funktion, um die Liste der Cocktails abzurufen
     fun getCocktails() {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope başlatılır.
             try {
-                _cocktailsLiveData.postValue(repository.getCocktails())
+                _cocktailsLiveData.postValue(repository.getCocktails()) // Repository'den kokteyl listesinin çekilmesi.
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching cocktails: $e")
+                Log.e(TAG, "Error fetching cocktails: $e") // Hata durumunda hata loglanır.
             }
         }
     }
 
     // Kokteyl araması yapma fonksiyonu
+// Funktion zur Suche nach Cocktails
     fun searchCocktails(query: String) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope başlatılır.
             try {
-                _cocktailsLiveData.postValue(repository.getCocktailByName(query))
+                _cocktailsLiveData.postValue(repository.getCocktailByName(query)) // Belirli bir sorguya göre kokteyllerin aranması.
             } catch (e: Exception) {
-                Log.e(TAG, "Error searching cocktails: $e")
+                Log.e(TAG, "Error searching cocktails: $e") // Hata durumunda hata loglanır.
             }
         }
     }
 
+
     // Kokteyl detayının alınması için fonksiyon
+// Funktion zum Abrufen der Cocktail-Details
     fun getCocktailDetail(cocktailId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope başlatılır.
             try {
-                _cocktailDetailLiveData.postValue(repository.getCocktailById(cocktailId))
+                _cocktailDetailLiveData.postValue(repository.getCocktailById(cocktailId)) // Repository'den belirli bir kokteyl ID'sine göre detayların çekilmesi.
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching cocktail detail: $e")
+                Log.e(TAG, "Error fetching cocktail detail: $e") // Hata durumunda hata loglanır.
             }
         }
     }
 
     // Favori yemeklerin alınması için fonksiyon
+// Funktion zum Abrufen der Lieblingsmahlzeiten
     fun getFavouriteMeals() {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope başlatılır.
             try {
-                repository.getFavouriteMeals().observeForever {
+                repository.getFavouriteMeals().observeForever { // Repository'den favori yemeklerin çekilmesi ve LiveData'ya postalanması.
                     _favouriteMealsLiveData.postValue(it)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching favourite meals: $e")
+                Log.e(TAG, "Error fetching favourite meals: $e") // Hata durumunda hata loglanır.
             }
         }
     }
 
     // Favori kokteyllerin alınması için fonksiyon
+// Funktion zum Abrufen der Lieblingscocktails
     fun getFavouriteCocktails(){
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine scope başlatılır.
             try {
-                repository.getFavouriteCocktails().observeForever {
+                repository.getFavouriteCocktails().observeForever { // Repository'den favori kokteyllerin çekilmesi ve LiveData'ya postalanması.
                     _favouriteCocktailsLiveData.postValue(it)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching favourite cocktails: $e")
+                Log.e(TAG, "Error fetching favourite cocktails: $e") // Hata durumunda hata loglanır.
             }
         }
     }
 
+
     // Favori bir yemek eklemek için fonksiyon
+// Funktion zum Hinzufügen einer Lieblingsmahlzeit
     fun addFavoriteMeal(favoriteMeal: FavoriteMeal) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine başlatılır
             try {
-                repository.insertFavoriteMeal(favoriteMeal)
-                getFavouriteMeals() // Favori yemek listesini güncelle
+                repository.insertFavoriteMeal(favoriteMeal) // Repository aracılığıyla favori yemek eklenir
+                getFavouriteMeals() // Favori yemek listesi güncellenir
             } catch (e: Exception) {
-                Log.e(TAG, "Error inserting favorite meal: $e")
+                Log.e(TAG, "Error inserting favorite meal: $e") // Hata durumunda loglama yapılır
             }
         }
     }
 
     // Favori bir kokteyl eklemek için fonksiyon
-    fun addFavoriteCocktail(favoriteCocktail: FavoriteCocktail){
-        viewModelScope.launch {
+// Funktion zum Hinzufügen eines Lieblingscocktails
+    fun addFavoriteCocktail(favoriteCocktail: FavoriteCocktail) {
+        viewModelScope.launch { // Coroutine başlatılır
             try {
-                repository.insertFavoriteCocktail(favoriteCocktail)
-                getFavouriteCocktails() // Favori kokteyller listesini güncelle
+                repository.insertFavoriteCocktail(favoriteCocktail) // Repository aracılığıyla favori kokteyl eklenir
+                getFavouriteCocktails() // Favori kokteyller listesi güncellenir
             } catch (e: Exception) {
-                Log.e(TAG, "Error inserting favorite cocktail: $e")
+                Log.e(TAG, "Error inserting favorite cocktail: $e") // Hata durumunda loglama yapılır
             }
         }
     }
 
     // Bir favori yemeği silmek için fonksiyon
+// Funktion zum Löschen einer Lieblingsmahlzeit
     fun deleteFavoriteMeal(favoriteMeal: FavoriteMeal) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine başlatılır
             try {
-                repository.deleteFavoriteMeal(favoriteMeal)
-                getFavouriteMeals() // Favori yemek listesini güncelle
+                repository.deleteFavoriteMeal(favoriteMeal) // Repository aracılığıyla favori yemek silinir
+                getFavouriteMeals() // Favori yemek listesi güncellenir
             } catch (e: Exception) {
-                Log.e(TAG, "Error deleting favorite meal: $e")
+                Log.e(TAG, "Error deleting favorite meal: $e") // Hata durumunda loglama yapılır
             }
         }
     }
 
     // Bir favori kokteyli silmek için fonksiyon
+// Funktion zum Löschen eines Lieblingscocktails
     fun deleteFavoriteCocktail(favoriteCocktail: FavoriteCocktail) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine başlatılır
             try {
-                repository.deleteFavoriteCocktail(favoriteCocktail)
-                getFavouriteCocktails() // Favori kokteyller listesini güncelle
+                repository.deleteFavoriteCocktail(favoriteCocktail) // Repository aracılığıyla favori kokteyl silinir
+                getFavouriteCocktails() // Favori kokteyller listesi güncellenir
             } catch (e: Exception) {
-                Log.e(TAG, "Error deleting favorite cocktail: $e")
+                Log.e(TAG, "Error deleting favorite cocktail: $e") // Hata durumunda loglama yapılır
             }
         }
     }
@@ -217,41 +247,43 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     // Firebase ile kullanıcı işlemleri
-    private val firebaseAuth = FirebaseAuth.getInstance()
+// Benutzeroperationen mit Firebase
+    private val firebaseAuth = FirebaseAuth.getInstance() // Firebase Auth instance'ını alır.
 
-    private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
+    private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser) // Aktif kullanıcıyı LiveData olarak saklar.
     val currentUser: LiveData<FirebaseUser?>
-        get() = _currentUser
+        get() = _currentUser // Aktif kullanıcıyı döndüren LiveData'yı sağlar.
 
     // Kullanıcı kaydı için fonksiyon
+// Funktion zur Benutzerregistrierung
     fun signup(email: String, password: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { user ->
             if (user.isSuccessful) {
-                login(email, password) // Kayıt başarılı ise giriş yap
+                login(email, password) // Kayıt başarılı ise giriş yapar.
             } else {
-                Log.e(TAG, "Signup failed: ${user.exception}")
+                Log.e(TAG, "Signup failed: ${user.exception}") // Kayıt başarısız olursa hata loglar.
             }
         }
     }
 
     // Kullanıcı girişi için fonksiyon
+// Funktion für Benutzerlogin
     fun login(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                _currentUser.value = firebaseAuth.currentUser
+                _currentUser.value = firebaseAuth.currentUser // Başarılı giriş sonrası currentUser güncellenir.
             } else {
-                Log.e(TAG, "Login failed: ${it.exception}")
+                Log.e(TAG, "Login failed: ${it.exception}") // Giriş başarısız olursa hata loglar.
             }
         }
     }
 
     // Kullanıcı çıkışı için fonksiyon
+// Funktion zum Benutzerlogout
     fun logout() {
-        firebaseAuth.signOut()
-        _currentUser.value = firebaseAuth.currentUser
+        firebaseAuth.signOut() // Firebase Auth üzerinden çıkış yapar.
+        _currentUser.value = null // currentUser değerini null yapar.
     }
-
-
 
 
 //----------------------------Note-------------------------------------------------
@@ -259,65 +291,130 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     // Notlar ile ilgili işlemler
-    val noteList = repository.noteList
+// Operationen bezüglich Notizen
+    val noteList = repository.noteList // Repository'den notların listesini alır.
 
-    private val _complete = MutableLiveData<Boolean>()
+    private val _complete = MutableLiveData<Boolean>() // İşlemin tamamlanma durumunu tutar.
     val complete: LiveData<Boolean>
-        get() = _complete
+        get() = _complete // İşlem tamamlanma durumunu dışarıya açar.
 
     // Not ekleme fonksiyonu
+// Funktion zum Hinzufügen einer Notiz
     fun insertNote(note: Note) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine başlatılır.
             try {
-                repository.insert(note)
-                _complete.value = true
+                repository.insert(note) // Repository aracılığıyla not ekler.
+                _complete.value = true // İşlem başarılı olduğunda tamamlanma durumu güncellenir.
             } catch (e: Exception) {
-                Log.e("MainViewModel", "Error inserting note: $e")
+                Log.e("MainViewModel", "Error inserting note: $e") // Hata durumunda loglama yapılır.
             }
         }
     }
 
     // Not güncelleme fonksiyonu
+// Funktion zum Aktualisieren einer Notiz
     fun updateNote(note: Note) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine başlatılır.
             try {
-                repository.update(note)
-                _complete.value = true
+                repository.update(note) // Repository aracılığıyla not güncellenir.
+                _complete.value = true // İşlem başarılı olduğunda tamamlanma durumu güncellenir.
             } catch (e: Exception) {
-                Log.e("MainViewModel", "Error updating note with id: ${note.id}, error: $e")
+                Log.e("MainViewModel", "Error updating note with id: ${note.id}, error: $e") // Hata durumunda loglama yapılır.
             }
         }
     }
 
     // Not silme fonksiyonu
+// Funktion zum Löschen einer Notiz
     fun deleteNote(note: Note) {
-        viewModelScope.launch {
+        viewModelScope.launch { // Coroutine başlatılır.
             try {
-                repository.delete(note)
-                Log.e("MainViewModel", "Deleted note with id: ${note.id}")
-                _complete.value = true
+                repository.delete(note) // Repository aracılığıyla not silinir.
+                Log.e("MainViewModel", "Deleted note with id: ${note.id}") // Silme işlemi loglanır.
+                _complete.value = true // İşlem başarılı olduğunda tamamlanma durumu güncellenir.
             } catch (e: Exception) {
-                Log.e("MainViewModel", "Error deleting note with id: ${note.id}, error: $e")
+                Log.e("MainViewModel", "Error deleting note with id: ${note.id}, error: $e") // Hata durumunda loglama yapılır.
             }
         }
     }
 
     // İşlem tamamlandıktan sonra durumu sıfırlama
+// Status zurücksetzen, nachdem die Operation abgeschlossen ist
     fun unsetComplete() {
-        _complete.value = false
+        _complete.value = false // İşlem tamamlandıktan sonra durum sıfırlanır.
     }
+
 
 //-------------------------- OpenAiAssistant--------------------------------------------
 
-    fun createChatCompletion(messages: List<Message>, model: String) {
-        isLoading.postValue(true)
-        val request = ChatRequest(messages, model)
-        repository.createChatCompletion(request, { response ->
-            isLoading.postValue(false)
-            chatResponse.postValue(response?.choices?.firstOrNull()?.message?.content)
-        }, { error ->
-            isLoading.postValue(false)
-            errorMessage.postValue(error)
-        })
+    // Chat ile ilgili işlemleri yöneten repository nesnesi
+// Repository-Objekt für Chat-Operationen
+    private val chatRepository = repository
+
+    // Chat yanıtını tutmak için kullanılan LiveData
+// LiveData, die die Chat-Antwort hält
+    val chatResponse = MutableLiveData<String?>()
+
+    // Hata mesajlarını tutmak için kullanılan LiveData
+// LiveData, die Fehlermeldungen hält
+    val errorMessage = MutableLiveData<String?>()
+
+    // İşlemin yüklenme durumunu gösteren LiveData
+// LiveData, die den Ladezustand der Operation anzeigt
+    val isLoading = MutableLiveData<Boolean>()
+
+    // Anahtar kelimeler listesi
+   // Liste von Schlüsselwörtern
+    private val keywords = listOf(
+        "yemek", "tarifi", "kokteyl", "hazırlanır", "yapılışı", // Türkçe
+        "recipe", "cocktail", "food", "meal", // İngilizce
+        "Essen", "Rezept", "Lebensmittelrezept", "Nahrungsmittelrezept",
+        "Kochrezept", // Almanca
+    )
+
+    // Mesajın yemek tarifi veya kokteylle ilgili olup olmadığını kontrol eden fonksiyon
+// Funktion, die prüft, ob die Nachricht mit Rezepten oder Cocktails zu tun hat
+    private fun isMessageAboutRecipesOrCocktails(message: String): Boolean {
+        // Mesaj içinde bu anahtar kelimelerden herhangi birinin geçip geçmediğini kontrol eder.
+        // Überprüft, ob die Nachricht eines der Schlüsselwörter enthält.
+        for (keyword in keywords) {
+            if (message.contains(keyword, ignoreCase = true)) {
+                return true
+            }
+        }
+        return false
     }
+
+    // Chat tamamlama işlemini gerçekleştiren fonksiyon
+    // Funktion zur Durchführung der Chat-Vervollständigung
+    fun createChatCompletion(messages: List<Message>, model: String) {
+        isLoading.postValue(true) // Yükleniyor durumunu aktif olarak bildirir  // Teilt den aktiven Ladezustand mit
+        val request = ChatRequest(messages, model) // Chat isteği oluşturur  // Erstellt eine Chat-Anfrage
+
+        // Mesajlar içinde yemek tarifi veya kokteyl ile ilgili içerik var mı diye kontrol et
+        // Überprüft, ob die Nachrichten Inhalte über Rezepte oder Cocktails enthalten
+        if (messages.any { message -> isMessageAboutRecipesOrCocktails(message.content) }) {
+            chatRepository.createChatCompletion(request, { response ->
+                isLoading.postValue(false) // Yükleniyor durumunu pasif olarak bildirir // Setzt den Ladezustand auf inaktiv
+                val responseMessage = response?.choices?.firstOrNull()?.message?.content // Yanıttaki ilk seçenekten mesajı çıkarır // Extrahiert die Nachricht aus der ersten Wahl der Antwort
+                if (responseMessage != null && isMessageAboutRecipesOrCocktails(responseMessage)) {
+                    chatResponse.postValue(responseMessage) // Başarılı yanıtı yayınlar // Veröffentlicht die erfolgreiche Antwort
+                } else {
+                    // Eğer mesaj yemek tarifi veya kokteylle ilgili değilse, boş bir mesaj döndürülebilir veya isteğe göre farklı bir işlem yapılabilir.
+                    // Wenn die Nachricht nichts mit Rezepten oder Cocktails zu tun hat, kann eine leere Nachricht zurückgegeben oder eine andere Aktion durchgeführt werden.
+                    chatResponse.postValue(null)
+                }
+            }, { error ->
+                isLoading.postValue(false) // Yükleniyor durumunu pasif olarak bildirir // Setzt den Ladezustand auf inaktiv
+                errorMessage.postValue(error) // Hata mesajını yayınlar // Veröffentlicht die Fehlermeldung
+            })
+        } else {
+            isLoading.postValue(false) // Yükleniyor durumunu pasif olarak bildirir // Setzt den Ladezustand auf inaktiv
+            errorMessage.postValue("I can only provide information about Recipes and Cocktails.\n" +
+                    "\n Ich kann nur Informationen über Rezepte und Cocktails bereitstellen.")
+            // Veröffentlicht eine Fehlermeldung, dass nur Informationen über Rezepte und Cocktails bereitgestellt werden können
+        }
+    }
+
+
 }

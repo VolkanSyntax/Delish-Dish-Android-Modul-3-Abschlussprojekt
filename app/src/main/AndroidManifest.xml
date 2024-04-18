@@ -31,3 +31,41 @@
     </application>
 
 </manifest>
+
+<!--
+    <?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools">
+
+ Uygulama için gerekli izinler
+ Erforderliche Berechtigungen für die Anwendung
+<uses-permission android:name="android.permission.INTERNET" /> İnternet erişimi için
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  Ağ durumunu kontrol etmek için
+
+<application
+    android:allowBackup="true"  Uygulama verilerinin yedeklenmesine izin verir
+android:dataExtractionRules="@xml/data_extraction_rules"  Veri çıkarma kuralları
+android:fullBackupContent="@xml/backup_rules"  Yedekleme kuralları
+android:icon="@mipmap/ic_launcher"  Uygulama simgesi
+android:label="@string/app_name" Uygulama adı
+android:roundIcon="@mipmap/ic_launcher_round"  Yuvarlak simge
+android:supportsRtl="true"  Sağdan sola yazı desteği
+android:theme="@style/Theme.AndroidAbschluss"  Uygulama teması
+tools:targetApi="31"> Hedeflenen API seviyesi
+<activity
+    android:name=".MainActivity"
+    android:exported="true"  Activity'nin diğer uygulamalar tarafından başlatılabilir olduğunu belirtir
+android:windowSoftInputMode="adjustPan">  Klavye açıldığında görünümün düzenlenme modu
+<intent-filter>
+    <action android:name="android.intent.action.MAIN" /  Bu activity'nin başlangıç noktası olduğunu belirtir
+    <category android:name="android.intent.category.LAUNCHER"   Başlatıcıda görünecek kategori
+</intent-filter>
+</activity>
+<meta-data
+android:name="preloaded_fonts"
+android:resource="@array/preloaded_fonts" / Önceden yüklenmiş yazı tipleri
+    </application>
+
+    </manifest>
+
+-->

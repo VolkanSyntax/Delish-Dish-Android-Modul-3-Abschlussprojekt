@@ -2,7 +2,7 @@ package de.syntax.androidabschluss.data.models
 
 import com.squareup.moshi.Json
 
-/*
+/**
 Bu Kotlin kod parçası, bir Cocktail data modelini tanımlar. Model, bir kokteylin çeşitli özelliklerini tutmak için
 kullanılır ve Moshi kütüphanesi ile JSON serileştirme/deserileştirme işlemleri için hazırlanmıştır. Her bir özellik,
 JSON'dan gelen karşılık gelen veri ile eşleşmek üzere @Json annotation'ı ile işaretlenmiştir. İşte özelliklerin açıklamaları:
@@ -28,7 +28,7 @@ dateModified: Kokteylin veri kaydının son güncellendiği tarih.
 Bu model, bir API'den gelen kokteyl verilerini uygulama içerisinde kolayca kullanabilmek için hazırlanmıştır.
 @Json annotation'ı, Moshi kütüphanesinin JSON anahtarlarını Kotlin özellikleriyle eşleştirmesini sağlar, böylece
 JSON'dan nesne oluşturma ve nesneden JSON'a dönüşüm işlemleri kolaylaşır.
- */
+ **/
 
 data class Cocktail(
     @Json(name = "idDrink") val idDrink: String,

@@ -3,7 +3,7 @@ package de.syntax.androidabschluss.data.models
 import com.squareup.moshi.Json
 
 
-/*
+/**
 Bu Kotlin kod parçası, bir Meal data modelini tanımlar. Bu model,
 bir yemeğin çeşitli özelliklerini tutmak için kullanılır ve Moshi kütüphanesi
 ile JSON serileştirme/deserileştirme işlemleri için hazırlanmıştır. Yemeklerle
@@ -27,7 +27,7 @@ strImageSource: Yemeğin görselinin kaynağı (eğer varsa).
 strCreativeCommonsConfirmed: Yemeğin görselinin Creative Commons lisansı altında olup olmadığını belirten
 işaret (eğer varsa).
 dateModified: Yemeğin veri kaydının son güncellendiği tarih.
- */
+ **/
 data class Meal(
 
     @Json(name = "idMeal") val idMeal: String,

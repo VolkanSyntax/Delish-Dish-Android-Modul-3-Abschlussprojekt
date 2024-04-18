@@ -1,30 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme -->
+    <!-- Temel uygulama teması, hem gündüz hem de gece modları için ayarlamalar. -->
+    <!-- Basisanwendungsthema-Einstellungen für sowohl Tag- als auch Nachtmodus. -->
     <style name="Base.Theme.AndroidAbschluss" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="colorPrimary">@color/colorSecondary2</item>
-        <item name="colorPrimaryVariant">@color/colorSecondary</item>
-        <item name="colorOnPrimary">@color/colorPrimary3</item>
-        <item name="colorSecondary">@color/colorPrimary2</item>
-        <item name="colorSecondaryVariant">@color/colorPrimary2</item>
-        <item name="colorOnSecondary">@color/colorPrimary5</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
-        <item name="colorSurface">@color/colorPrimary3</item>
-        <item name="colorOnSurface">@color/colorPrimary5</item>
-        <item name="android:textColor">@color/colorPrimary5</item>
-        <!-- Add other items that you need for your base theme -->
+        <!-- Her iki mod için ortak özelleştirmeler. -->
+        <!-- Gemeinsame Anpassungen für beide Modi. -->
+        <item name="android:statusBarColor">@color/colorPrimary5</item> <!-- Durum çubuğu rengi -->
+        <item name="colorPrimary">@color/colorPrimary2</item> <!-- Birincil renk -->
+        <item name="colorPrimaryVariant">@color/colorSecondary</item> <!-- Birincil rengin varyantı -->
+        <item name="colorOnPrimary">@color/colorPrimary3</item> <!-- Birincil renk üzerindeki yazı rengi -->
+        <item name="colorSecondary">@color/colorPrimary2</item> <!-- İkincil renk -->
+        <item name="colorSecondaryVariant">@color/colorPrimary2</item> <!-- İkincil rengin varyantı -->
+        <item name="colorOnSecondary">@color/colorPrimary5</item> <!-- İkincil renk üzerindeki yazı rengi -->
+        <item name="android:navigationBarColor">@color/colorPrimary5</item> <!-- Navigasyon çubuğu rengi -->
+        <item name="colorSurface">@color/colorPrimary3</item> <!-- Yüzey rengi -->
+        <item name="colorOnSurface">@color/colorPrimary3</item> <!-- Yüzey üzerindeki yazı rengi -->
+        <item name="android:textColor">@color/colorPrimary5</item> <!-- Genel yazı rengi -->
+        <!-- Spinner stil tanımı, hem gündüz hem de gece için. Aşağıda tanımlanmıştır. -->
+        <!-- Spinner-Stil für Tag und Nacht. Unten definiert. -->
+        <item name="android:spinnerStyle">@style/CustomSpinnerStyle</item>
     </style>
 
-    <!-- Style for Spinner that can be used for both day and night -->
-    <style name="MySpinner" parent="Widget.AppCompat.Spinner.Underlined">
-        <item name="android:popupBackground">?attr/colorSurface</item> <!-- For dropdown background -->
-        <item name="android:textColor">?attr/colorOnSurface</item> <!-- For dropdown text color -->
+    <!-- Özel Spinner stil tanımı. -->
+    <!-- Benutzerdefinierter Stil für Spinner. -->
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner.Underlined">
+        <!-- Bunlar varsayılan ayarlar, gerçek renkler aşağıdaki gündüz/gece özel temalarda değiştirilir. -->
+        <!-- Dies sind die Standardeinstellungen, tatsächliche Farben werden in den spezifischen Tag/Nacht-Themen unten geändert. -->
+        <item name="android:popupBackground">?attr/colorSurface</item> <!-- Açılır menü arka planı -->
+        <item name="android:textColor">?attr/colorOnSurface</item> <!-- Açılır menü yazı rengi -->
     </style>
 
-
-    <!-- Application theme -->
+    <!-- Uygulama teması, özelleştirmeler uygulanır. -->
+    <!-- Anwendungsthema, das Anpassungen anwendet. -->
     <style name="Theme.AndroidAbschluss" parent="Base.Theme.AndroidAbschluss">
-        <item name="android:spinnerStyle">@style/MySpinner</item>
-        <!-- You can add other theme customizations here -->
+        <!-- Uygulamanızın teması için ek özelleştirmeler buraya girilir. -->
+        <!-- Weitere Anpassungen für das Thema Ihrer App gehen hier. -->
     </style>
 </resources>
