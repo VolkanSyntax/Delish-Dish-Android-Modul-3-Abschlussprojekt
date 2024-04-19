@@ -2,13 +2,13 @@ package de.syntax.androidabschluss.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import de.syntax.androidabschluss.BuildConfig
 import de.syntax.androidabschluss.data.models.Cocktail
 import de.syntax.androidabschluss.data.models.Meal
 import de.syntax.androidabschluss.data.models.request.ChatRequest
 import de.syntax.androidabschluss.data.models.response.ChatResponse
 import de.syntax.androidabschluss.data.remote.ApiInterface
 import de.syntax.androidabschluss.data.remote.CocktailApiService
-import de.syntax.androidabschluss.data.remote.OPENAI_API_KEY
 import de.syntax.androidabschluss.data.remote.RecipeApiService
 import de.syntax.androidabschluss.local.FavoriteCocktail
 import de.syntax.androidabschluss.local.FavoriteCocktailDatabase
@@ -44,6 +44,8 @@ class Repository(
     // Lokale Datenbank für Benutzernotizen
     private val noteDb: NoteDatabase
 ) {
+
+
 
 
     // Yemek tariflerini çeken asenkron fonksiyon
@@ -197,6 +199,9 @@ class Repository(
             Log.e(TAG, "Error deleting from database: $e") // Hata durumunda loglama yapar
         }
     }
+
+
+    val OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY
 
 
     // Chat tamamlama işlemini gerçekleştiren fonksiyon

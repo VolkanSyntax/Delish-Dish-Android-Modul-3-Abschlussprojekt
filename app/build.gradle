@@ -29,6 +29,9 @@ android {
     compileSdk = 34
 
     defaultConfig {
+
+        buildConfigField "String", "OPENAI_API_KEY", "${OPENAI_API_KEY}"
+
         // Uygulamanın unique ID'sini belirler. Play Store'da uygulamanın tanımlanmasını sağlar.
         // Definiert die eindeutige ID der App. Dies dient zur Identifizierung der App im Play Store.
         applicationId = "de.syntax.androidabschluss"
@@ -56,7 +59,7 @@ android {
 
         // BuildConfig dosyasına bir API anahtarı ekler. Bu sayede API anahtarınızı kodunuzda güvenli bir şekilde kullanabilirsiniz.
         // Fügt der BuildConfig-Datei einen API-Schlüssel hinzu. Damit können Sie Ihren API-Schlüssel sicher in Ihrem Code verwenden.
-        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
+
     }
 
     buildTypes {
