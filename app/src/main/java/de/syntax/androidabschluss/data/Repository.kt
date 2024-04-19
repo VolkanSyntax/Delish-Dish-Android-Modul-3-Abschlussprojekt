@@ -45,6 +45,7 @@ class Repository(
     private val noteDb: NoteDatabase
 ) {
 
+
     // Yemek tariflerini çeken asenkron fonksiyon
     // Asynchrone Funktion zum Abrufen von Rezepten
     suspend fun getMeals(): List<Meal>? {

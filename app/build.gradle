@@ -20,34 +20,36 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+val openaiApiKey : String = com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty("openaiApiKey")
+
 android {
     // Uygulamanın unique namespace'ini belirler. Bu, uygulamanın diğer uygulamalardan ayırt edilmesini sağlar.
     // Definiert den eindeutigen Namespace der App. Dies hilft, die App von anderen zu unterscheiden.
-    namespace 'de.syntax.androidabschluss'
+    namespace = 'de.syntax.androidabschluss'
     // Uygulamanın derlendiği Android SDK sürümünü belirler.
     // Bestimmt die Android SDK-Version, gegen die die App kompiliert wird.
-    compileSdk 34
+    compileSdk = 34
 
     defaultConfig {
         // Uygulamanın unique ID'sini belirler. Play Store'da uygulamanın tanımlanmasını sağlar.
         // Definiert die eindeutige ID der App. Dies dient zur Identifizierung der App im Play Store.
-        applicationId "de.syntax.androidabschluss"
+        applicationId = "de.syntax.androidabschluss"
         // Uygulamanın çalıştırılabileceği minimum Android sürümünü belirler.
         // Legt die minimale Android-Version fest, auf der die App laufen kann.
-        minSdk 26
+        minSdk = 26
         // Uygulamanın hedeflediği Android sürümünü belirler. Uygulama bu sürüme göre optimize edilir.
         // Bestimmt die Ziel-Android-Version der App. Die App wird für diese Version optimiert.
-        targetSdk 34
+        targetSdk = 34
         // Uygulamanın sürüm kodunu belirler. Her yeni sürümde bu değer artırılmalıdır.
         // Legt den Versionscode der App fest. Dieser Wert sollte mit jeder neuen Version erhöht werden.
-        versionCode 1
+        versionCode = 1
         // Uygulamanın sürüm adını belirler. Kullanıcılar için görsel bir bilgidir.
         // Bestimmt den Versionsnamen der App. Dies ist eine visuelle Information für die Benutzer.
-        versionName "1.0"
+        versionName = "1.0"
 
         // Android Test Runner sınıfını belirler. Uygulama testlerinin nasıl çalıştırılacağını tanımlar.
         // Definiert die Android Test Runner-Klasse. Bestimmt, wie Anwendungstests ausgeführt werden.
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Vector drawables için destek kütüphanesi kullanımını etkinleştirir.
         // Aktiviert die Verwendung der Support-Bibliothek für Vektorgrafiken.
         vectorDrawables {
@@ -56,11 +58,11 @@ android {
 
         // BuildConfig dosyasına bir API anahtarı ekler. Bu sayede API anahtarınızı kodunuzda güvenli bir şekilde kullanabilirsiniz.
         // Fügt der BuildConfig-Datei einen API-Schlüssel hinzu. Damit können Sie Ihren API-Schlüssel sicher in Ihrem Code verwenden.
-        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
     }
 
     buildTypes {
         release {
+            buildConfigField("String","openaiApiKey",openaiApiKey)
             // Uygulamanın release build'inde kod küçültme işlemini etkinleştirir veya devre dışı bırakır.
             // Aktiviert oder deaktiviert die Codeverkleinerung im Release-Build der Anwendung.
             minifyEnabled false
@@ -70,6 +72,9 @@ android {
                     getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
             )
+        }
+        debug{
+            buildConfigField("String","openaiApiKey",openaiApiKey)
         }
     }
     compileOptions {
