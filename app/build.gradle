@@ -20,8 +20,6 @@ plugins {
     id("com.google.gms.google-services")
 }
 
-val openaiApiKey : String = com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty("openaiApiKey")
-
 android {
     // Uygulamanın unique namespace'ini belirler. Bu, uygulamanın diğer uygulamalardan ayırt edilmesini sağlar.
     // Definiert den eindeutigen Namespace der App. Dies hilft, die App von anderen zu unterscheiden.
@@ -58,14 +56,14 @@ android {
 
         // BuildConfig dosyasına bir API anahtarı ekler. Bu sayede API anahtarınızı kodunuzda güvenli bir şekilde kullanabilirsiniz.
         // Fügt der BuildConfig-Datei einen API-Schlüssel hinzu. Damit können Sie Ihren API-Schlüssel sicher in Ihrem Code verwenden.
+        buildConfigField "String", "OPENAI_API_KEY", "\"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\""
     }
 
     buildTypes {
         release {
-            buildConfigField("String","openaiApiKey",openaiApiKey)
             // Uygulamanın release build'inde kod küçültme işlemini etkinleştirir veya devre dışı bırakır.
             // Aktiviert oder deaktiviert die Codeverkleinerung im Release-Build der Anwendung.
-            minifyEnabled false
+            minifyEnabled = false
             // Proguard kurallarını tanımlayan dosyaları ekler. Kod küçültme ve obfuskasyon için kullanılır.
             // Fügt Dateien hinzu, die Proguard-Regeln definieren. Wird für Codeverkleinerung und Obfuskation verwendet.
             proguardFiles(
@@ -73,15 +71,12 @@ android {
                     'proguard-rules.pro'
             )
         }
-        debug{
-            buildConfigField("String","openaiApiKey",openaiApiKey)
-        }
     }
     compileOptions {
         // Java sürüm uyumluluğunu belirler.
         // Legt die Java-Version-Kompatibilität fest.
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         // Kotlin için JVM hedef sürümünü belirler.
