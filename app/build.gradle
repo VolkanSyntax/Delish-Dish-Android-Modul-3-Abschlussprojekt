@@ -119,7 +119,7 @@ dependencies {
 
     // Temel AndroidX ve UI bileşenleri için bağımlılıklar.
     // Abhängigkeiten für grundlegende AndroidX- und UI-Komponenten.
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -153,5 +153,6 @@ dependencies {
     // Abhängigkeiten für Firebase-Dienste. Versionsverwaltung mit BOM.
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-auth")
+
 }
 

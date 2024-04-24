@@ -246,6 +246,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
+
+
+
     // Firebase ile kullanıcı işlemleri
 // Benutzeroperationen mit Firebase
     private val firebaseAuth = FirebaseAuth.getInstance() // Firebase Auth instance'ını alır.
@@ -287,6 +290,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
 //----------------------------Note-------------------------------------------------
+
+
+
+
 
 
 
@@ -346,6 +353,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
 //-------------------------- OpenAiAssistant--------------------------------------------
+
+
+
 
     // Chat ile ilgili işlemleri yöneten repository nesnesi
 // Repository-Objekt für Chat-Operationen
