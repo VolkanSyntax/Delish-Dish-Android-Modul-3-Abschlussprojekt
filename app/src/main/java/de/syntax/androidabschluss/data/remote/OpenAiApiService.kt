@@ -1,5 +1,6 @@
 package de.syntax.androidabschluss.data.remote
 
+
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.syntax.androidabschluss.BuildConfig
@@ -16,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 // API anahtarları ve temel URL'ler.
 const val BASE_URL = "https://api.openai.com/v1/" // API'nin temel URL'si. // Basis-URL der API.
-
+const val apiKey: String = BuildConfig.API_KEY
 // JSON serileştirme/deserileştirme işlemleri için Moshi nesnesi.
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory()) // Kotlin sınıflarıyla uyumluluk sağlamak için. // Für die Kompatibilität mit Kotlin-Klassen.
@@ -42,7 +43,7 @@ interface ApiInterface {
     fun createChatCompletion(
         @Body chatRequest: ChatRequest, // ChatRequest nesnesi, HTTP body olarak gönderilir. // ChatRequest-Objekt wird als HTTP-Body gesendet.
         @Header("Content-Type") contentType: String = "application/json", // İçerik tipi başlığı. // Inhalts-Typ-Header.
-        @Header("Authorization") authorization: String = "Bearer ${BuildConfig.OPENAI_API_KEY}" // Yetkilendirme başlığı. // Autorisierungsheader.
+        @Header("Authorization") authorization: String = "Bearer $apiKey" // Yetkilendirme başlığı. // Autorisierungsheader.
     ): Call<ChatResponse> // ChatResponse tipinde bir cevap döndürür. // Gibt eine Antwort vom Typ ChatResponse zurück.
 }
 

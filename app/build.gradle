@@ -20,6 +20,11 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+def propertiesFile = rootProject.file("local.properties")
+def properties = new Properties()
+properties.load(new FileInputStream(propertiesFile))
+def apiKey = properties.getProperty("apiKey")
+
 android {
     // Uygulamanın unique namespace'ini belirler. Bu, uygulamanın diğer uygulamalardan ayırt edilmesini sağlar.
     // Definiert den eindeutigen Namespace der App. Dies hilft, die App von anderen zu unterscheiden.
@@ -29,9 +34,6 @@ android {
     compileSdk = 34
 
     defaultConfig {
-
-        buildConfigField "String", "OPENAI_API_KEY", "${OPENAI_API_KEY}"
-
         // Uygulamanın unique ID'sini belirler. Play Store'da uygulamanın tanımlanmasını sağlar.
         // Definiert die eindeutige ID der App. Dies dient zur Identifizierung der App im Play Store.
         applicationId = "de.syntax.androidabschluss"
@@ -55,6 +57,8 @@ android {
         // Aktiviert die Verwendung der Support-Bibliothek für Vektorgrafiken.
         vectorDrawables {
             useSupportLibrary = true
+
+            buildConfigField "String", "API_KEY", "\"${apiKey}\""
         }
 
         // BuildConfig dosyasına bir API anahtarı ekler. Bu sayede API anahtarınızı kodunuzda güvenli bir şekilde kullanabilirsiniz.
@@ -64,15 +68,17 @@ android {
 
     buildTypes {
         release {
-            // Uygulamanın release build'inde kod küçültme işlemini etkinleştirir veya devre dışı bırakır.
-            // Aktiviert oder deaktiviert die Codeverkleinerung im Release-Build der Anwendung.
+            buildConfigField 'String', 'API_KEY', '"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"'
+
             minifyEnabled = false
             // Proguard kurallarını tanımlayan dosyaları ekler. Kod küçültme ve obfuskasyon için kullanılır.
             // Fügt Dateien hinzu, die Proguard-Regeln definieren. Wird für Codeverkleinerung und Obfuskation verwendet.
             proguardFiles(
                     getDefaultProguardFile('proguard-android-optimize.txt'),
-                    'proguard-rules.pro'
-            )
+                    'proguard-rules.pro')
+        }
+        debug {
+            buildConfigField 'String', 'API_KEY', '"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"'
         }
     }
     compileOptions {

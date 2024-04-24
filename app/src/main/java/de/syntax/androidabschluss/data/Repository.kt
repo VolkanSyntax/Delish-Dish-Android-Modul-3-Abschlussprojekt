@@ -201,7 +201,7 @@ class Repository(
     }
 
 
-    val OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY
+    val apiKey: String = BuildConfig.API_KEY
 
 
     // Chat tamamlama işlemini gerçekleştiren fonksiyon
@@ -214,7 +214,7 @@ class Repository(
         onError: (String) -> Unit // İşlem başarısız olduğunda çağrılacak fonksiyon
         // Funktion, die aufgerufen wird, wenn die Operation fehlschlägt
     ) {
-        chatApiService.createChatCompletion(chatRequest, "application/json", "Bearer $OPENAI_API_KEY") // API servisi üzerinden chat tamamlama isteğini başlatır.
+        chatApiService.createChatCompletion(chatRequest, "application/json", "Bearer $apiKey") // API servisi üzerinden chat tamamlama isteğini başlatır.
             // API-Dienst startet die Anfrage zur Chat-Vervollständigung.
             .enqueue(object : Callback<ChatResponse> { // Asenkron işlem başlatılır.
                 // Startet einen asynchronen Prozess.
